@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Force Vector Laboratory | ENGI HUB
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #0f172a;
+        }
+
+        body.dark-mode {
+            background: #020617;
+            color: #e2e8f0;
+        }
+
+        nav {
+            height: 70px;
+            background: #0f172a;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav .logo {
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        nav .menu {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+        }
+
+        nav .menu a {
+            color: white !important;
+            text-decoration: none;
+        }
+
+        nav .menu a:visited {
+            color: white !important;
+        }
+
+        nav .menu a:hover {
+            color: #60a5fa !important;
+        }
+
+        .dark-mode-btn {
+            border: none;
+            background: transparent;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .lab-header {
+            text-align: center;
+            padding: 55px 20px 35px;
+            background:
+                linear-gradient(
+                    135deg,
+                    #0f172a,
+                    #1e3a8a
+                );
+            color: white;
+        }
+
+        .lab-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.12);
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
+
+        .lab-header h1 {
+            margin: 0;
+            font-size: 42px;
+        }
+
+        .lab-header p {
+            max-width: 760px;
+            margin: 15px auto 0;
+            line-height: 1.7;
+            color: #dbeafe;
+        }
+
+        .lab-container {
+            max-width: 1250px;
+            margin: auto;
+            padding: 35px 20px 70px;
+        }
+
+        .section-card {
+            background: white;
+            border-radius: 18px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 25px rgba(15,23,42,0.08);
+        }
+
+        body.dark-mode .section-card {
+            background: #0f172a;
+            box-shadow: none;
+        }
+
+        .section-title {
+            margin-top: 0;
+            margin-bottom: 8px;
+            font-size: 24px;
+        }
+
+        .section-description {
+            color: #64748b;
+            margin-top: 0;
+            line-height: 1.6;
+        }
+
+        body.dark-mode .section-description {
+            color: #94a3b8;
+        }
+
+        .simulation-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1.8fr) minmax(280px, 1fr);
+            gap: 25px;
+        }
+
+        .canvas-wrapper {
+            background: #020617;
+            border-radius: 16px;
+            overflow: hidden;
+            min-height: 500px;
+        }
+
+        #forceCanvas {
+            width: 100%;
+            height: 500px;
+            display: block;
+        }
+
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .force-card {
+            border-radius: 14px;
+            padding: 18px;
+            border: 1px solid #e2e8f0;
+        }
+
+        body.dark-mode .force-card {
+            border-color: #334155;
+        }
+
+        .force-card h3 {
+            margin: 0 0 14px;
+        }
+
+        .force-card.force-one h3 {
+            color: #38bdf8;
+        }
+
+        .force-card.force-two h3 {
+            color: #f59e0b;
+        }
+
+        .force-card.force-three h3 {
+            color: #a78bfa;
+        }
+
+        .input-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 13px;
+            margin-bottom: 6px;
+            color: #64748b;
+        }
+
+        body.dark-mode .input-group label {
+            color: #94a3b8;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 9px;
+            font-size: 15px;
+            background: white;
+        }
+
+        body.dark-mode .input-group input {
+            background: #020617;
+            color: white;
+            border-color: #475569;
+        }
+
+        .button-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .lab-button {
+            border: none;
+            padding: 12px 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .primary-button {
+            background: #2563eb;
+            color: white;
+        }
+
+        .secondary-button {
+            background: #e2e8f0;
+            color: #0f172a;
+        }
+
+        body.dark-mode .secondary-button {
+            background: #334155;
+            color: white;
+        }
+
+        .status-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 13px 16px;
+            border-radius: 12px;
+            background: #f8fafc;
+        }
+
+        body.dark-mode .status-box {
+            background: #020617;
+        }
+
+        #statusDot {
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            background: #22c55e;
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(4, minmax(0, 1fr));
+            gap: 15px;
+        }
+
+        .result-card {
+            padding: 20px;
+            border-radius: 14px;
+            background: #f8fafc;
+        }
+
+        body.dark-mode .result-card {
+            background: #020617;
+        }
+
+        .result-card span {
+            display: block;
+            color: #64748b;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        body.dark-mode .result-card span {
+            color: #94a3b8;
+        }
+
+        .result-card strong {
+            font-size: 23px;
+        }
+
+        .result-card.full {
+            grid-column: span 2;
+        }
+
+        .vector-result {
+            font-family: monospace;
+            font-size: 18px !important;
+        }
+
+        .equilibrium {
+            padding: 20px;
+            border-radius: 14px;
+            margin-top: 15px;
+            background: #ecfdf5;
+            color: #166534;
+            font-weight: bold;
+        }
+
+        body.dark-mode .equilibrium {
+            background: #052e16;
+            color: #86efac;
+        }
+
+        .steps {
+            display: grid;
+            gap: 12px;
+        }
+
+        .step {
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+            padding: 16px;
+            border-radius: 12px;
+            background: #f8fafc;
+        }
+
+        body.dark-mode .step {
+            background: #020617;
+        }
+
+        .step-number {
+            min-width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #2563eb;
+            color: white;
+            font-weight: bold;
+        }
+
+        .step-content strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .step-content p {
+            margin: 0;
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        body.dark-mode .step-content p {
+            color: #94a3b8;
+        }
+
+        .formula-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+            gap: 15px;
+        }
+
+        .formula {
+            padding: 20px;
+            border-radius: 14px;
+            background: #f8fafc;
+            text-align: center;
+        }
+
+        body.dark-mode .formula {
+            background: #020617;
+        }
+
+        .formula strong {
+            display: block;
+            font-size: 22px;
+            margin-bottom: 8px;
+        }
+
+        .formula span {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        body.dark-mode .formula span {
+            color: #94a3b8;
+        }
+
+        .axis-guide {
+            display: grid;
+            grid-template-columns:
+                repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .axis-item {
+            padding: 15px;
+            border-radius: 12px;
+            background: #f8fafc;
+        }
+
+        body.dark-mode .axis-item {
+            background: #020617;
+        }
+
+        .axis-item strong {
+            display: block;
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .axis-x strong {
+            color: #ef4444;
+        }
+
+        .axis-y strong {
+            color: #22c55e;
+        }
+
+        .axis-z strong {
+            color: #3b82f6;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            background: #0f172a;
+            color: #94a3b8;
+        }
+
+        @media (max-width: 950px) {
+
+            .simulation-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .result-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 650px) {
+
+            nav {
+                padding: 0 15px;
+            }
+
+            nav .menu {
+                gap: 10px;
+                font-size: 13px;
+            }
+
+            nav .menu a:nth-child(4),
+            nav .menu a:nth-child(5) {
+                display: none;
+            }
+
+            .lab-header h1 {
+                font-size: 31px;
+            }
+
+            .input-row,
+            .axis-guide,
+            .formula-grid,
+            .result-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .result-card.full {
+                grid-column: span 1;
+            }
+
+            .section-card {
+                padding: 18px;
+            }
+
+            #forceCanvas {
+                height: 380px;
+            }
+
+            .canvas-wrapper {
+                min-height: 380px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<nav>
+
+    <div class="logo">
+        ⚙ ENGI HUB
+    </div>
+
+    <div class="menu">
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="index.html#tools">
+            Tools
+        </a>
+
+        <a href="formulas.html">
+            Formulas
+        </a>
+
+        <a href="equipment.html">
+            Equipment
+        </a>
+
+        <a href="history.html">
+            History
+        </a>
+
+        <a href="index.html#about">
+            About
+        </a>
+
+        <button
+            id="darkModeBtn"
+            class="dark-mode-btn"
+        >
+            🌙
+        </button>
+
+    </div>
+
+</nav>
+
+
+<header class="lab-header">
+
+    <div class="lab-badge">
+        🧲 ENGINEERING PHYSICS
+    </div>
+
+    <h1>
+        Force Vector Laboratory
+    </h1>
+
+    <p>
+        ห้องทดลองแรงหลายแรงในระบบ 3 มิติ
+        ทดลองการรวมแรง ศึกษาองค์ประกอบ
+        Fx, Fy, Fz และดูแรงลัพธ์
+        ΣF แบบ Real-time
+    </p>
+
+</header>
+
+
+<main class="lab-container">
+
+
+    <!-- SIMULATION -->
+
+    <section class="section-card">
+
+        <h2 class="section-title">
+            🧪 3D Force Simulation
+        </h2>
+
+        <p class="section-description">
+            ปรับค่าแรงแต่ละแรงแล้วสังเกตการเปลี่ยนแปลง
+            ของแรงลัพธ์ในระบบ 3 มิติ
+        </p>
+
+
+        <div class="simulation-layout">
+
+
+            <div>
+
+                <div class="canvas-wrapper">
+
+                    <canvas id="forceCanvas"></canvas>
+
+                </div>
+
+
+                <div class="axis-guide">
+
+                    <div class="axis-item axis-x">
+                        <strong>X</strong>
+                        แกน X
+                    </div>
+
+                    <div class="axis-item axis-y">
+                        <strong>Y</strong>
+                        แกน Y
+                    </div>
+
+                    <div class="axis-item axis-z">
+                        <strong>Z</strong>
+                        แกน Z
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="controls">
+
+
+                <!-- FORCE 1 -->
+
+                <div class="force-card force-one">
+
+                    <h3>
+                        🔵 Force 1
+                    </h3>
+
+                    <div class="input-row">
+
+                        <div class="input-group">
+                            <label>Fx (N)</label>
+                            <input
+                                id="f1x"
+                                type="number"
+                                value="4"
+                                step="0.1"
+                            >
+                        </div>
+
+                        <div class="input-group">
+                            <label>Fy (N)</label>
+                            <input
+                                id="f1y"
+                                type="number"
+                                value="2"
+                                step="0.1"
+                            >
+                        </div>
+
+                        <div class="input-group">
+                            <label>Fz (N)</label>
+                            <input
+                                id="f1z"
+                                type="number"
+                                value="1"
+                                step="0.1"
+                            >
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- FORCE 2 -->
+
+                <div class="force-card force-two">
+
+                    <h3>
+                        🟠 Force 2
+                    </h3>
+
+                    <div class="input-row">
+
+                        <div class="input-group">
+                            <label>Fx (N)</label>
+                            <input
+                                id="f2x"
+                                type="number"
+                                value="-2"
+                                step="0.1"
+                            >
+                        </div>
+
+                        <div class="input-group">
+                            <label>Fy (N)</label>
+                            <input
+                                id="f2y"
+                                type="number"
+                                value="3"
+                                step="0.1"
+                            >
+                        </div>
+
+                        <div class="input-group">
+                            <label>Fz (N)</label>
+                            <input
+                                id="f2z"
+                                type="number"
+                                value="2"
+                                step="0.1"
+                            >
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- FORCE 3 -->
+
+                <div class="force-card force-three">
+
+                    <h3>
+                        🟣 Force 3
+                    </h3>
+
+                    <div class="input-row">
+
+                        <div class="input-group">
+                            <label>Fx (N)</label>
+                            <input
+                                id="f3x"
+                                type="number"
+                                value="1"
+                                step="0.1"
+                            >
+                        </div>
+
+                        <div class="input-group">
+                            <label>Fy (N)</label>
+                            <input
+                                id="f3y"
+                                type="number"
+                                value="-1"
+                                step="0.1"
+                            >
+                        </div>
+
+                        <div class="input-group">
+                            <label>Fz (N)</label>
+                            <input
+                                id="f3z"
+                                type="number"
+                                value="3"
+                                step="0.1"
+                            >
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="button-row">
+
+                    <button
+                        id="resetButton"
+                        class="lab-button secondary-button"
+                        type="button"
+                    >
+                        🔄 Reset
+                    </button>
+
+                    <button
+                        id="saveButton"
+                        class="lab-button primary-button"
+                        type="button"
+                    >
+                        💾 Save Result
+                    </button>
+
+                </div>
+
+
+                <div class="status-box">
+
+                    <span id="statusDot"></span>
+
+                    <span id="statusText">
+                        พร้อมใช้งาน
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- RESULTS -->
+
+    <section class="section-card">
+
+        <h2 class="section-title">
+            📊 Resultant Force
+        </h2>
+
+        <p class="section-description">
+            แรงลัพธ์เกิดจากผลรวมของแรงทุกแรงในแต่ละแกน
+        </p>
+
+
+        <div class="result-grid">
+
+
+            <div class="result-card">
+
+                <span>
+                    ΣFx
+                </span>
+
+                <strong id="resultFx">
+                    0.00 N
+                </strong>
+
+            </div>
+
+
+            <div class="result-card">
+
+                <span>
+                    ΣFy
+                </span>
+
+                <strong id="resultFy">
+                    0.00 N
+                </strong>
+
+            </div>
+
+
+            <div class="result-card">
+
+                <span>
+                    ΣFz
+                </span>
+
+                <strong id="resultFz">
+                    0.00 N
+                </strong>
+
+            </div>
+
+
+            <div class="result-card">
+
+                <span>
+                    |ΣF|
+                </span>
+
+                <strong id="resultMagnitude">
+                    0.00 N
+                </strong>
+
+            </div>
+
+
+            <div class="result-card full">
+
+                <span>
+                    Resultant Vector
+                </span>
+
+                <strong
+                    id="resultVector"
+                    class="vector-result"
+                >
+                    (0, 0, 0) N
+                </strong>
+
+            </div>
+
+
+            <div class="result-card full">
+
+                <span>
+                    Unit Vector
+                </span>
+
+                <strong
+                    id="resultUnit"
+                    class="vector-result"
+                >
+                    (0, 0, 0)
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div
+            id="equilibriumText"
+            class="equilibrium"
+        >
+            ⚖️ ระบบยังไม่อยู่ในสมดุล
+        </div>
+
+    </section>
+
+
+    <!-- STEP BY STEP -->
+
+    <section class="section-card">
+
+        <h2 class="section-title">
+            🧮 วิธีคำนวณแรงลัพธ์
+        </h2>
+
+        <p class="section-description">
+            ระบบจะแสดงแนวคิดการรวมแรงเป็นขั้นตอน
+        </p>
+
+
+        <div class="steps">
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    1
+                </div>
+
+                <div class="step-content">
+
+                    <strong>
+                        รวมแรงในแกน X
+                    </strong>
+
+                    <p id="stepX">
+                        ΣFx = F1x + F2x + F3x
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    2
+                </div>
+
+                <div class="step-content">
+
+                    <strong>
+                        รวมแรงในแกน Y
+                    </strong>
+
+                    <p id="stepY">
+                        ΣFy = F1y + F2y + F3y
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    3
+                </div>
+
+                <div class="step-content">
+
+                    <strong>
+                        รวมแรงในแกน Z
+                    </strong>
+
+                    <p id="stepZ">
+                        ΣFz = F1z + F2z + F3z
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    4
+                </div>
+
+                <div class="step-content">
+
+                    <strong>
+                        หาแรงลัพธ์
+                    </strong>
+
+                    <p id="stepMagnitude">
+                        |ΣF| = √(ΣFx² + ΣFy² + ΣFz²)
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    5
+                </div>
+
+                <div class="step-content">
+
+                    <strong>
+                        ตรวจสอบสมดุล
+                    </strong>
+
+                    <p id="stepEquilibrium">
+                        ถ้า |ΣF| ≈ 0 ระบบจะอยู่ในสมดุล
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FORMULAS -->
+
+    <section class="section-card">
+
+        <h2 class="section-title">
+            📐 สูตรสำคัญ
+        </h2>
+
+
+        <div class="formula-grid">
+
+
+            <div class="formula">
+
+                <strong>
+                    ΣF = F₁ + F₂ + F₃
+                </strong>
+
+                <span>
+                    ผลรวมของแรงทั้งหมด
+                </span>
+
+            </div>
+
+
+            <div class="formula">
+
+                <strong>
+                    ΣFx = F₁x + F₂x + F₃x
+                </strong>
+
+                <span>
+                    องค์ประกอบของแรงในแกน X
+                </span>
+
+            </div>
+
+
+            <div class="formula">
+
+                <strong>
+                    ΣFy = F₁y + F₂y + F₃y
+                </strong>
+
+                <span>
+                    องค์ประกอบของแรงในแกน Y
+                </span>
+
+            </div>
+
+
+            <div class="formula">
+
+                <strong>
+                    ΣFz = F₁z + F₂z + F₃z
+                </strong>
+
+                <span>
+                    องค์ประกอบของแรงในแกน Z
+                </span>
+
+            </div>
+
+
+            <div class="formula">
+
+                <strong>
+                    |ΣF| = √(Fx² + Fy² + Fz²)
+                </strong>
+
+                <span>
+                    ขนาดของแรงลัพธ์
+                </span>
+
+            </div>
+
+
+            <div class="formula">
+
+                <strong>
+                    F̂ = F / |F|
+                </strong>
+
+                <span>
+                    เวกเตอร์หนึ่งหน่วย
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+<footer>
+
+    <p>
+        © 2026 ENGI HUB
+    </p>
+
+    <p>
+        Engineering Calculation Tools
+    </p>
+
+</footer>
+
+
+<script type="importmap">
+{
+    "imports": {
+        "three":
+            "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+
+        "three/addons/":
+            "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"
+    }
+}
+</script>
+
+
+<script
+    type="module"
+    src="js/physics/force-vector.js"
+></script>
+
+<script src="js/darkmode.js"></script>
+
+
+</body>
+
+</html>

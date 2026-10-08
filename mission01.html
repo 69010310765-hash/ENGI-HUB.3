@@ -1,0 +1,2502 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Engineering Mission 01 | ENGI HUB
+    </title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            font-family:
+                Arial,
+                "Noto Sans Thai",
+                sans-serif;
+
+            background: #f4f7fb;
+
+            color: #0f172a;
+
+            transition:
+                background 0.25s ease,
+                color 0.25s ease;
+        }
+
+
+        /* =========================
+           NAVBAR
+        ========================== */
+
+        nav {
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 1000;
+
+            height: 70px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 30px;
+
+            background: #0f172a;
+
+            box-shadow:
+                0 4px 15px rgba(0, 0, 0, 0.12);
+        }
+
+
+        .logo {
+
+            color: white;
+
+            font-size: 21px;
+
+            font-weight: 800;
+
+            text-decoration: none;
+
+            letter-spacing: 0.3px;
+        }
+
+
+        .menu {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 24px;
+        }
+
+
+        .menu a {
+
+            color: #ffffff !important;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            transition:
+                color 0.2s ease;
+        }
+
+
+        .menu a:visited {
+
+            color: #ffffff !important;
+        }
+
+
+        .menu a:hover {
+
+            color: #60a5fa !important;
+        }
+
+
+        .menu a:active {
+
+            color: #ffffff !important;
+        }
+
+
+        .dark-mode-btn {
+
+            border: none;
+
+            background: rgba(255, 255, 255, 0.1);
+
+            color: white;
+
+            width: 40px;
+
+            height: 40px;
+
+            border-radius: 10px;
+
+            cursor: pointer;
+
+            font-size: 18px;
+
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease;
+        }
+
+
+        .dark-mode-btn:hover {
+
+            background: rgba(255, 255, 255, 0.2);
+
+            transform: translateY(-1px);
+        }
+
+
+        /* =========================
+           HERO
+        ========================== */
+
+        .hero {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #0f172a,
+                    #1d4ed8
+                );
+
+            color: white;
+
+            padding:
+                65px
+                20px
+                70px;
+
+            text-align: center;
+        }
+
+
+        .hero-badge {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding:
+                8px
+                15px;
+
+            border-radius: 999px;
+
+            background:
+                rgba(255, 255, 255, 0.12);
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.2);
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            margin-bottom: 20px;
+        }
+
+
+        .hero h1 {
+
+            margin:
+                0
+                0
+                12px;
+
+            font-size:
+                clamp(32px, 5vw, 54px);
+
+            letter-spacing:
+                -1px;
+        }
+
+
+        .hero p {
+
+            max-width: 760px;
+
+            margin:
+                0
+                auto;
+
+            color: #dbeafe;
+
+            line-height: 1.8;
+
+            font-size: 16px;
+        }
+
+
+        .hero-sub {
+
+            margin-top: 15px !important;
+
+            font-size: 14px !important;
+
+            color: #bfdbfe !important;
+        }
+
+
+        /* =========================
+           MAIN
+        ========================== */
+
+        main {
+
+            width: min(
+                1180px,
+                calc(100% - 32px)
+            );
+
+            margin:
+                35px
+                auto
+                70px;
+        }
+
+
+        .back-button {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            text-decoration: none;
+
+            color: #2563eb;
+
+            font-weight: 700;
+
+            margin-bottom: 25px;
+        }
+
+
+        .back-button:hover {
+
+            text-decoration: underline;
+        }
+
+
+        /* =========================
+           MISSION BRIEF
+        ========================== */
+
+        .mission-brief {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffffff,
+                    #eff6ff
+                );
+
+            border:
+                1px solid #dbeafe;
+
+            border-radius: 20px;
+
+            padding: 28px;
+
+            margin-bottom: 25px;
+
+            box-shadow:
+                0 10px 30px
+                rgba(15, 23, 42, 0.07);
+        }
+
+
+        .mission-top {
+
+            display: flex;
+
+            align-items: flex-start;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .mission-number {
+
+            color: #2563eb;
+
+            font-size: 13px;
+
+            font-weight: 800;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .mission-brief h2 {
+
+            margin:
+                0
+                0
+                10px;
+
+            font-size: 28px;
+        }
+
+
+        .mission-brief p {
+
+            margin: 0;
+
+            line-height: 1.8;
+
+            color: #475569;
+        }
+
+
+        .mission-icon {
+
+            width: 72px;
+
+            height: 72px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            flex-shrink: 0;
+
+            border-radius: 18px;
+
+            background: #dbeafe;
+
+            font-size: 38px;
+        }
+
+
+        .mission-objectives {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 15px;
+        }
+
+
+        .objective {
+
+            padding: 17px;
+
+            border-radius: 14px;
+
+            background: white;
+
+            border:
+                1px solid #e2e8f0;
+        }
+
+
+        .objective-label {
+
+            display: block;
+
+            color: #64748b;
+
+            font-size: 12px;
+
+            margin-bottom: 6px;
+        }
+
+
+        .objective strong {
+
+            font-size: 17px;
+        }
+
+
+        /* =========================
+           GAME GRID
+        ========================== */
+
+        .game-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                minmax(0, 1.4fr)
+                minmax(320px, 0.8fr);
+
+            gap: 25px;
+
+            align-items: start;
+        }
+
+
+        .card {
+
+            background: white;
+
+            border:
+                1px solid #e2e8f0;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 8px 25px
+                rgba(15, 23, 42, 0.06);
+
+            overflow: hidden;
+        }
+
+
+        .card-header {
+
+            padding:
+                20px
+                22px;
+
+            border-bottom:
+                1px solid #e2e8f0;
+        }
+
+
+        .card-header h3 {
+
+            margin: 0;
+
+            font-size: 18px;
+        }
+
+
+        .card-header p {
+
+            margin:
+                6px
+                0
+                0;
+
+            color: #64748b;
+
+            font-size: 13px;
+
+            line-height: 1.6;
+        }
+
+
+        .card-body {
+
+            padding: 22px;
+        }
+
+
+        /* =========================
+           SIMULATION
+        ========================== */
+
+        .simulation-card {
+
+            min-width: 0;
+        }
+
+
+        .canvas-wrapper {
+
+            position: relative;
+
+            width: 100%;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #dbeafe 0%,
+                    #eff6ff 65%,
+                    #dcfce7 65%,
+                    #dcfce7 100%
+                );
+
+            border-radius: 15px;
+
+            overflow: hidden;
+
+            border:
+                1px solid #dbeafe;
+        }
+
+
+        #simulationCanvas {
+
+            display: block;
+
+            width: 100%;
+
+            height: auto;
+
+            min-height: 360px;
+        }
+
+
+        .simulation-overlay {
+
+            position: absolute;
+
+            top: 14px;
+
+            left: 14px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding:
+                8px
+                12px;
+
+            background:
+                rgba(255, 255, 255, 0.9);
+
+            border-radius: 10px;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            color: #334155;
+
+            backdrop-filter:
+                blur(8px);
+        }
+
+
+        .status-dot {
+
+            width: 9px;
+
+            height: 9px;
+
+            border-radius: 50%;
+
+            background: #94a3b8;
+
+            box-shadow:
+                0 0 0 4px
+                rgba(148, 163, 184, 0.15);
+        }
+
+
+        .status-dot.running {
+
+            background: #22c55e;
+
+            box-shadow:
+                0 0 0 4px
+                rgba(34, 197, 94, 0.15);
+        }
+
+
+        .status-dot.paused {
+
+            background: #f59e0b;
+
+            box-shadow:
+                0 0 0 4px
+                rgba(245, 158, 11, 0.15);
+        }
+
+
+        .status-dot.success {
+
+            background: #2563eb;
+
+            box-shadow:
+                0 0 0 4px
+                rgba(37, 99, 235, 0.15);
+        }
+
+
+        .status-dot.failed {
+
+            background: #ef4444;
+
+            box-shadow:
+                0 0 0 4px
+                rgba(239, 68, 68, 0.15);
+        }
+
+
+        /* =========================
+           REALTIME
+        ========================== */
+
+        .realtime-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 12px;
+
+            margin-top: 18px;
+        }
+
+
+        .realtime-item {
+
+            padding: 15px;
+
+            background: #f8fafc;
+
+            border-radius: 13px;
+
+            border:
+                1px solid #e2e8f0;
+        }
+
+
+        .realtime-label {
+
+            display: block;
+
+            color: #64748b;
+
+            font-size: 11px;
+
+            margin-bottom: 7px;
+        }
+
+
+        .realtime-value {
+
+            font-size: 18px;
+
+            font-weight: 800;
+        }
+
+
+        /* =========================
+           CONTROL PANEL
+        ========================== */
+
+        .control-group {
+
+            margin-bottom: 23px;
+        }
+
+
+        .control-label {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 10px;
+
+            margin-bottom: 10px;
+
+            font-weight: 700;
+
+            font-size: 14px;
+        }
+
+
+        .control-value {
+
+            color: #2563eb;
+
+            font-weight: 800;
+        }
+
+
+        input[type="range"] {
+
+            width: 100%;
+
+            accent-color: #2563eb;
+
+            cursor: pointer;
+        }
+
+
+        .range-info {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            color: #94a3b8;
+
+            font-size: 11px;
+
+            margin-top: 5px;
+        }
+
+
+        .surface-options {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 10px;
+        }
+
+
+        .surface-option {
+
+            position: relative;
+        }
+
+
+        .surface-option input {
+
+            position: absolute;
+
+            opacity: 0;
+
+            pointer-events: none;
+        }
+
+
+        .surface-option label {
+
+            display: block;
+
+            padding: 13px;
+
+            border:
+                1px solid #e2e8f0;
+
+            border-radius: 12px;
+
+            cursor: pointer;
+
+            transition:
+                border-color 0.2s ease,
+                background 0.2s ease,
+                transform 0.2s ease;
+        }
+
+
+        .surface-option label:hover {
+
+            transform: translateY(-1px);
+
+            border-color: #93c5fd;
+        }
+
+
+        .surface-option input:checked + label {
+
+            border-color: #2563eb;
+
+            background: #eff6ff;
+
+            box-shadow:
+                0 0 0 2px
+                rgba(37, 99, 235, 0.08);
+        }
+
+
+        .surface-name {
+
+            display: block;
+
+            font-weight: 700;
+
+            font-size: 13px;
+        }
+
+
+        .surface-mu {
+
+            display: block;
+
+            margin-top: 4px;
+
+            color: #64748b;
+
+            font-size: 11px;
+        }
+
+
+        /* =========================
+           BUTTONS
+        ========================== */
+
+        .button-group {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 10px;
+
+            margin-top: 25px;
+        }
+
+
+        .button-group button {
+
+            min-height: 46px;
+
+            border: none;
+
+            border-radius: 11px;
+
+            padding:
+                10px
+                14px;
+
+            cursor: pointer;
+
+            font-weight: 800;
+
+            font-size: 13px;
+
+            transition:
+                transform 0.2s ease,
+                opacity 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+
+        .button-group button:hover {
+
+            transform: translateY(-2px);
+        }
+
+
+        .button-group button:disabled {
+
+            opacity: 0.45;
+
+            cursor: not-allowed;
+
+            transform: none;
+        }
+
+
+        #startButton {
+
+            background: #2563eb;
+
+            color: white;
+
+            grid-column:
+                1 / -1;
+
+            box-shadow:
+                0 7px 18px
+                rgba(37, 99, 235, 0.22);
+        }
+
+
+        #pauseButton {
+
+            background: #f59e0b;
+
+            color: white;
+        }
+
+
+        #resumeButton {
+
+            background: #16a34a;
+
+            color: white;
+        }
+
+
+        #resetButton {
+
+            background: #e2e8f0;
+
+            color: #334155;
+        }
+
+
+        /* =========================
+           TARGET PANEL
+        ========================== */
+
+        .target-panel {
+
+            margin-top: 20px;
+
+            padding: 17px;
+
+            border-radius: 13px;
+
+            background: #f8fafc;
+
+            border:
+                1px solid #e2e8f0;
+        }
+
+
+        .target-panel h4 {
+
+            margin:
+                0
+                0
+                10px;
+
+            font-size: 13px;
+        }
+
+
+        .target-row {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            gap: 10px;
+
+            padding: 7px 0;
+
+            border-bottom:
+                1px solid #e2e8f0;
+
+            font-size: 12px;
+        }
+
+
+        .target-row:last-child {
+
+            border-bottom: none;
+        }
+
+
+        .target-row span:first-child {
+
+            color: #64748b;
+        }
+
+
+        /* =========================
+           MISSION RESULT
+        ========================== */
+
+        .mission-result {
+
+            display: none;
+
+            margin-top: 20px;
+
+            padding: 22px;
+
+            border-radius: 16px;
+
+            text-align: center;
+        }
+
+
+        .mission-result.show {
+
+            display: block;
+
+            animation:
+                resultIn 0.35s ease;
+        }
+
+
+        @keyframes resultIn {
+
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+        .mission-result.success {
+
+            background: #ecfdf5;
+
+            border:
+                1px solid #bbf7d0;
+        }
+
+
+        .mission-result.failed {
+
+            background: #fef2f2;
+
+            border:
+                1px solid #fecaca;
+        }
+
+
+        .result-icon {
+
+            font-size: 42px;
+
+            margin-bottom: 7px;
+        }
+
+
+        .result-title {
+
+            font-size: 23px;
+
+            font-weight: 900;
+
+            margin-bottom: 7px;
+        }
+
+
+        .success .result-title {
+
+            color: #15803d;
+        }
+
+
+        .failed .result-title {
+
+            color: #b91c1c;
+        }
+
+
+        .result-message {
+
+            color: #475569;
+
+            line-height: 1.7;
+
+            font-size: 13px;
+        }
+
+
+        .stars {
+
+            margin:
+                14px
+                0
+                5px;
+
+            font-size: 30px;
+
+            letter-spacing: 3px;
+        }
+
+
+        .xp-earned {
+
+            font-weight: 900;
+
+            color: #2563eb;
+
+            font-size: 18px;
+        }
+
+
+        /* =========================
+           RESULTS
+        ========================== */
+
+        .results-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 12px;
+        }
+
+
+        .result-item {
+
+            padding: 16px;
+
+            background: #f8fafc;
+
+            border-radius: 13px;
+
+            border:
+                1px solid #e2e8f0;
+        }
+
+
+        .result-item span {
+
+            display: block;
+
+            color: #64748b;
+
+            font-size: 11px;
+
+            margin-bottom: 6px;
+        }
+
+
+        .result-item strong {
+
+            font-size: 18px;
+        }
+
+
+        /* =========================
+           FORMULA
+        ========================== */
+
+        .formula-box {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 12px;
+        }
+
+
+        .formula {
+
+            padding: 17px;
+
+            background: #f8fafc;
+
+            border-radius: 12px;
+
+            border:
+                1px solid #e2e8f0;
+
+            font-size: 18px;
+
+            font-weight: 800;
+
+            text-align: center;
+        }
+
+
+        .formula small {
+
+            display: block;
+
+            margin-top: 7px;
+
+            color: #64748b;
+
+            font-size: 11px;
+
+            font-weight: 400;
+        }
+
+
+        /* =========================
+           BOTTOM SECTIONS
+        ========================== */
+
+        .bottom-card {
+
+            margin-top: 25px;
+        }
+
+
+        .engineering-tip {
+
+            padding: 20px;
+
+            border-radius: 14px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #eff6ff,
+                    #f8fafc
+                );
+
+            border:
+                1px solid #dbeafe;
+
+            line-height: 1.8;
+
+            color: #334155;
+
+            font-size: 14px;
+        }
+
+
+        .engineering-tip strong {
+
+            color: #1d4ed8;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================== */
+
+        footer {
+
+            background: #0f172a;
+
+            color: #94a3b8;
+
+            text-align: center;
+
+            padding: 30px 20px;
+
+            font-size: 13px;
+
+            line-height: 1.7;
+        }
+
+
+        footer strong {
+
+            color: white;
+        }
+
+
+        /* =========================
+           DARK MODE
+        ========================== */
+
+        body.dark-mode {
+
+            background: #0b1120;
+
+            color: #e2e8f0;
+        }
+
+
+        body.dark-mode .mission-brief {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #111827,
+                    #172554
+                );
+
+            border-color: #1e3a8a;
+        }
+
+
+        body.dark-mode .mission-brief p {
+
+            color: #cbd5e1;
+        }
+
+
+        body.dark-mode .mission-icon {
+
+            background: #1e3a8a;
+        }
+
+
+        body.dark-mode .objective {
+
+            background: #111827;
+
+            border-color: #334155;
+        }
+
+
+        body.dark-mode .objective-label {
+
+            color: #94a3b8;
+        }
+
+
+        body.dark-mode .card {
+
+            background: #111827;
+
+            border-color: #334155;
+        }
+
+
+        body.dark-mode .card-header {
+
+            border-color: #334155;
+        }
+
+
+        body.dark-mode .card-header p {
+
+            color: #94a3b8;
+        }
+
+
+        body.dark-mode .realtime-item,
+        body.dark-mode .result-item,
+        body.dark-mode .target-panel,
+        body.dark-mode .formula {
+
+            background: #0f172a;
+
+            border-color: #334155;
+        }
+
+
+        body.dark-mode .realtime-label,
+        body.dark-mode .result-item span,
+        body.dark-mode .target-row span:first-child {
+
+            color: #94a3b8;
+        }
+
+
+        body.dark-mode .surface-option label {
+
+            border-color: #334155;
+        }
+
+
+        body.dark-mode .surface-option input:checked + label {
+
+            background: #172554;
+
+            border-color: #3b82f6;
+        }
+
+
+        body.dark-mode .surface-mu {
+
+            color: #94a3b8;
+        }
+
+
+        body.dark-mode #resetButton {
+
+            background: #334155;
+
+            color: #e2e8f0;
+        }
+
+
+        body.dark-mode .engineering-tip {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #172554,
+                    #111827
+                );
+
+            border-color: #1e3a8a;
+
+            color: #cbd5e1;
+        }
+
+
+        body.dark-mode .back-button {
+
+            color: #60a5fa;
+        }
+
+
+        body.dark-mode .simulation-overlay {
+
+            background:
+                rgba(15, 23, 42, 0.88);
+
+            color: #e2e8f0;
+        }
+
+
+        /* =========================
+           ACCESSIBILITY
+        ========================== */
+
+        button:focus-visible,
+        input:focus-visible,
+        a:focus-visible,
+        label:focus-visible {
+
+            outline:
+                3px solid
+                rgba(59, 130, 246, 0.45);
+
+            outline-offset: 2px;
+        }
+
+
+        /* =========================
+           RESPONSIVE
+        ========================== */
+
+        @media (max-width: 950px) {
+
+            .game-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+
+        @media (max-width: 800px) {
+
+            nav {
+
+                padding: 0 16px;
+            }
+
+
+            .menu {
+
+                gap: 10px;
+            }
+
+
+            .menu a {
+
+                display: none;
+            }
+
+
+            .mission-objectives {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .realtime-grid {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+
+            .results-grid {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .hero {
+
+                padding:
+                    50px
+                    16px
+                    55px;
+            }
+
+
+            main {
+
+                width:
+                    min(
+                        100% - 20px,
+                        1180px
+                    );
+
+                margin-top: 25px;
+            }
+
+
+            .mission-brief {
+
+                padding: 20px;
+            }
+
+
+            .mission-top {
+
+                flex-direction: column;
+            }
+
+
+            .mission-icon {
+
+                width: 58px;
+
+                height: 58px;
+
+                font-size: 30px;
+            }
+
+
+            .realtime-grid,
+            .results-grid,
+            .formula-box,
+            .surface-options {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .button-group {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            #startButton {
+
+                grid-column: auto;
+            }
+
+        }
+
+
+        @media (prefers-reduced-motion: reduce) {
+
+            html {
+
+                scroll-behavior: auto;
+            }
+
+
+            *,
+            *::before,
+            *::after {
+
+                animation-duration: 0.01ms !important;
+
+                animation-iteration-count: 1 !important;
+
+                transition-duration: 0.01ms !important;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVBAR
+    ========================== -->
+
+    <nav>
+
+        <a
+            href="index.html"
+            class="logo"
+        >
+            ⚙ ENGI HUB
+        </a>
+
+
+        <div class="menu">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="index.html#tools">
+                Tools
+            </a>
+
+            <a href="formulas.html">
+                Formulas
+            </a>
+
+            <a href="equipment.html">
+                Equipment
+            </a>
+
+            <a href="history.html">
+                History
+            </a>
+
+            <a href="index.html#about">
+                About
+            </a>
+
+
+            <button
+                id="darkModeBtn"
+                class="dark-mode-btn"
+                type="button"
+                aria-label="เปลี่ยนโหมดสี"
+            >
+                🌙
+            </button>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =========================
+         HERO
+    ========================== -->
+
+    <header class="hero">
+
+        <div class="hero-badge">
+            🎮 Engineering Mission
+        </div>
+
+
+        <h1>
+            Mission 01
+        </h1>
+
+
+        <p>
+            Cargo Ramp
+            <br>
+            ภารกิจแรกของคุณคือการออกแบบทางลาด
+            เพื่อขนส่งสินค้าให้ถึงปลายทางอย่างปลอดภัย
+        </p>
+
+
+        <p class="hero-sub">
+            ใช้หลักฟิสิกส์จริง • ทดลองได้ • มีคะแนน • มี XP
+        </p>
+
+    </header>
+
+
+    <main>
+
+
+        <a
+            href="physics.html"
+            class="back-button"
+        >
+            ← กลับไป Physics Simulation
+        </a>
+
+
+        <!-- =========================
+             MISSION BRIEF
+        ========================== -->
+
+        <section class="mission-brief">
+
+            <div class="mission-top">
+
+                <div>
+
+                    <div class="mission-number">
+                        ENGINEERING MISSION 01
+                    </div>
+
+
+                    <h2>
+                        🏗️ Cargo Ramp
+                    </h2>
+
+
+                    <p>
+
+                        โรงงานต้องขนส่งสินค้าหนัก
+                        <strong>20 kg</strong>
+                        ลงมาตามทางลาดเป็นระยะทาง
+                        <strong>10 m</strong>
+
+                        <br>
+
+                        หน้าที่ของคุณคือเลือก
+                        <strong>มุมทางลาด</strong>
+                        และ
+                        <strong>วัสดุพื้นผิว</strong>
+                        ให้สินค้าเคลื่อนที่ได้ตามเงื่อนไขของภารกิจ
+
+                    </p>
+
+                </div>
+
+
+                <div class="mission-icon">
+                    🏗️
+                </div>
+
+            </div>
+
+
+            <div class="mission-objectives">
+
+                <div class="objective">
+
+                    <span class="objective-label">
+                        ระยะทาง
+                    </span>
+
+                    <strong>
+                        10 m
+                    </strong>
+
+                </div>
+
+
+                <div class="objective">
+
+                    <span class="objective-label">
+                        เวลาเป้าหมาย
+                    </span>
+
+                    <strong>
+                        3.5 – 5.0 s
+                    </strong>
+
+                </div>
+
+
+                <div class="objective">
+
+                    <span class="objective-label">
+                        ความเร็วปลายทาง
+                    </span>
+
+                    <strong>
+                        4 – 7 m/s
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             GAME
+        ========================== -->
+
+        <section class="game-grid">
+
+
+            <!-- SIMULATION -->
+
+            <div class="card simulation-card">
+
+                <div class="card-header">
+
+                    <h3>
+                        🎮 Mission Simulation
+                    </h3>
+
+                    <p>
+                        ทดลองการออกแบบทางลาดของคุณ
+                    </p>
+
+                </div>
+
+
+                <div class="card-body">
+
+                    <div class="canvas-wrapper">
+
+                        <canvas
+                            id="simulationCanvas"
+                            width="760"
+                            height="420"
+                        >
+                        </canvas>
+
+
+                        <div class="simulation-overlay">
+
+                            <span
+                                id="statusDot"
+                                class="status-dot"
+                            >
+                            </span>
+
+                            <span id="statusText">
+                                Ready for Mission
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="realtime-grid">
+
+                        <div class="realtime-item">
+
+                            <span class="realtime-label">
+                                เวลา
+                            </span>
+
+                            <strong
+                                class="realtime-value"
+                                id="realtimeTime"
+                            >
+                                0.00 s
+                            </strong>
+
+                        </div>
+
+
+                        <div class="realtime-item">
+
+                            <span class="realtime-label">
+                                ระยะทาง
+                            </span>
+
+                            <strong
+                                class="realtime-value"
+                                id="realtimePosition"
+                            >
+                                0.00 m
+                            </strong>
+
+                        </div>
+
+
+                        <div class="realtime-item">
+
+                            <span class="realtime-label">
+                                ความเร็ว
+                            </span>
+
+                            <strong
+                                class="realtime-value"
+                                id="realtimeVelocity"
+                            >
+                                0.00 m/s
+                            </strong>
+
+                        </div>
+
+
+                        <div class="realtime-item">
+
+                            <span class="realtime-label">
+                                ความเร่ง
+                            </span>
+
+                            <strong
+                                class="realtime-value"
+                                id="realtimeAcceleration"
+                            >
+                                0.00 m/s²
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        id="missionResult"
+                        class="mission-result"
+                    >
+
+                        <div
+                            id="resultIcon"
+                            class="result-icon"
+                        >
+                            🎉
+                        </div>
+
+
+                        <div
+                            id="resultTitle"
+                            class="result-title"
+                        >
+                            Mission Complete!
+                        </div>
+
+
+                        <div
+                            id="resultMessage"
+                            class="result-message"
+                        >
+                        </div>
+
+
+                        <div
+                            id="stars"
+                            class="stars"
+                        >
+                            ⭐⭐⭐⭐⭐
+                        </div>
+
+
+                        <div
+                            id="xpEarned"
+                            class="xp-earned"
+                        >
+                            +500 XP
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- CONTROL PANEL -->
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <h3>
+                        ⚙️ Engineering Controls
+                    </h3>
+
+                    <p>
+                        ออกแบบทางลาดของคุณ
+                    </p>
+
+                </div>
+
+
+                <div class="card-body">
+
+
+                    <!-- ANGLE -->
+
+                    <div class="control-group">
+
+                        <div class="control-label">
+
+                            <span>
+                                มุมทางลาด
+                            </span>
+
+                            <span
+                                id="angleValue"
+                                class="control-value"
+                            >
+                                15°
+                            </span>
+
+                        </div>
+
+
+                        <input
+                            type="range"
+                            id="angle"
+                            min="10"
+                            max="35"
+                            step="1"
+                            value="15"
+                        >
+
+
+                        <div class="range-info">
+
+                            <span>
+                                10°
+                            </span>
+
+                            <span>
+                                35°
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- SURFACE -->
+
+                    <div class="control-group">
+
+                        <div class="control-label">
+
+                            <span>
+                                วัสดุพื้นผิว
+                            </span>
+
+                        </div>
+
+
+                        <div class="surface-options">
+
+
+                            <div class="surface-option">
+
+                                <input
+                                    type="radio"
+                                    id="surfaceSteel"
+                                    name="surface"
+                                    value="0.15"
+                                    checked
+                                >
+
+                                <label for="surfaceSteel">
+
+                                    <span class="surface-name">
+                                        🔩 เหล็ก
+                                    </span>
+
+                                    <span class="surface-mu">
+                                        μ = 0.15
+                                    </span>
+
+                                </label>
+
+                            </div>
+
+
+                            <div class="surface-option">
+
+                                <input
+                                    type="radio"
+                                    id="surfaceWood"
+                                    name="surface"
+                                    value="0.25"
+                                >
+
+                                <label for="surfaceWood">
+
+                                    <span class="surface-name">
+                                        🪵 ไม้
+                                    </span>
+
+                                    <span class="surface-mu">
+                                        μ = 0.25
+                                    </span>
+
+                                </label>
+
+                            </div>
+
+
+                            <div class="surface-option">
+
+                                <input
+                                    type="radio"
+                                    id="surfaceTeflon"
+                                    name="surface"
+                                    value="0.05"
+                                >
+
+                                <label for="surfaceTeflon">
+
+                                    <span class="surface-name">
+                                        🧊 Teflon
+                                    </span>
+
+                                    <span class="surface-mu">
+                                        μ = 0.05
+                                    </span>
+
+                                </label>
+
+                            </div>
+
+
+                            <div class="surface-option">
+
+                                <input
+                                    type="radio"
+                                    id="surfaceRubber"
+                                    name="surface"
+                                    value="0.35"
+                                >
+
+                                <label for="surfaceRubber">
+
+                                    <span class="surface-name">
+                                        🛞 ยาง
+                                    </span>
+
+                                    <span class="surface-mu">
+                                        μ = 0.35
+                                    </span>
+
+                                </label>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- BUTTONS -->
+
+                    <div class="button-group">
+
+                        <button
+                            id="startButton"
+                            type="button"
+                        >
+                            🚀 START MISSION
+                        </button>
+
+
+                        <button
+                            id="pauseButton"
+                            type="button"
+                            disabled
+                        >
+                            ⏸ Pause
+                        </button>
+
+
+                        <button
+                            id="resumeButton"
+                            type="button"
+                            disabled
+                        >
+                            ▶ Resume
+                        </button>
+
+
+                        <button
+                            id="resetButton"
+                            type="button"
+                        >
+                            ↻ Reset
+                        </button>
+
+                    </div>
+
+
+                    <!-- TARGET -->
+
+                    <div class="target-panel">
+
+                        <h4>
+                            🎯 Mission Requirements
+                        </h4>
+
+
+                        <div class="target-row">
+
+                            <span>
+                                ระยะทาง
+                            </span>
+
+                            <strong>
+                                10 m
+                            </strong>
+
+                        </div>
+
+
+                        <div class="target-row">
+
+                            <span>
+                                เวลาที่ต้องการ
+                            </span>
+
+                            <strong>
+                                3.5–5.0 s
+                            </strong>
+
+                        </div>
+
+
+                        <div class="target-row">
+
+                            <span>
+                                ความเร็วปลายทาง
+                            </span>
+
+                            <strong>
+                                4–7 m/s
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- RESULTS -->
+
+                    <div
+                        class="card-header"
+                        style="
+                            margin:
+                                25px -22px 18px;
+                            padding:
+                                20px 22px 0;
+                            border-bottom: none;
+                        "
+                    >
+
+                        <h3>
+                            📊 Mission Data
+                        </h3>
+
+                    </div>
+
+
+                    <div class="results-grid">
+
+                        <div class="result-item">
+
+                            <span>
+                                แรงตามแนวพื้นเอียง
+                            </span>
+
+                            <strong id="forceParallelResult">
+                                0 N
+                            </strong>
+
+                        </div>
+
+
+                        <div class="result-item">
+
+                            <span>
+                                แรงปฏิกิริยาปกติ
+                            </span>
+
+                            <strong id="normalForceResult">
+                                0 N
+                            </strong>
+
+                        </div>
+
+
+                        <div class="result-item">
+
+                            <span>
+                                แรงเสียดทาน
+                            </span>
+
+                            <strong id="frictionForceResult">
+                                0 N
+                            </strong>
+
+                        </div>
+
+
+                        <div class="result-item">
+
+                            <span>
+                                ความเร่ง
+                            </span>
+
+                            <strong id="accelerationResult">
+                                0 m/s²
+                            </strong>
+
+                        </div>
+
+
+                        <div class="result-item">
+
+                            <span>
+                                ความเร็วปลาย
+                            </span>
+
+                            <strong id="finalVelocityResult">
+                                0 m/s
+                            </strong>
+
+                        </div>
+
+
+                        <div class="result-item">
+
+                            <span>
+                                เวลาที่ใช้
+                            </span>
+
+                            <strong id="timeResult">
+                                0 s
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             FORMULAS
+        ========================== -->
+
+        <section class="card bottom-card">
+
+            <div class="card-header">
+
+                <h3>
+                    🧮 Engineering Physics
+                </h3>
+
+                <p>
+                    ระบบใช้สมการฟิสิกส์จริงในการประเมินภารกิจ
+                </p>
+
+            </div>
+
+
+            <div class="card-body">
+
+                <div class="formula-box">
+
+                    <div class="formula">
+
+                        F∥ = mg sin θ
+
+                        <small>
+                            แรงที่ทำให้วัตถุเคลื่อนลงตามพื้นเอียง
+                        </small>
+
+                    </div>
+
+
+                    <div class="formula">
+
+                        N = mg cos θ
+
+                        <small>
+                            แรงปฏิกิริยาตั้งฉาก
+                        </small>
+
+                    </div>
+
+
+                    <div class="formula">
+
+                        Ff = μN
+
+                        <small>
+                            แรงเสียดทาน
+                        </small>
+
+                    </div>
+
+
+                    <div class="formula">
+
+                        a = g(sin θ − μcos θ)
+
+                        <small>
+                            ความเร่งของวัตถุ
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             ENGINEERING TIP
+        ========================== -->
+
+        <section class="card bottom-card">
+
+            <div class="card-header">
+
+                <h3>
+                    💡 Engineering Tip
+                </h3>
+
+            </div>
+
+
+            <div class="card-body">
+
+                <div class="engineering-tip">
+
+                    <strong>
+                        วิศวกรไม่ได้เลือกค่าที่ “เร็วที่สุด” เสมอไป
+                    </strong>
+
+                    <br>
+
+                    การออกแบบที่ดีต้องคำนึงถึง
+                    ความเร็ว ความปลอดภัย แรงเสียดทาน
+                    และเงื่อนไขของระบบพร้อมกัน
+
+                    <br><br>
+
+                    ใน Mission นี้
+                    คุณต้องหาจุดสมดุลระหว่าง
+                    <strong>
+                        เวลา
+                    </strong>
+                    และ
+                    <strong>
+                        ความเร็ว
+                    </strong>
+                    เพื่อให้สินค้าถึงปลายทางตามข้อกำหนด
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer>
+
+        <strong>
+            © 2026 ENGI HUB
+        </strong>
+
+        <br>
+
+        Engineering Calculation Tools
+        •
+        Physics Simulation
+        •
+        Engineering Mission
+
+    </footer>
+
+
+    <script src="js/missions/mission01.js"></script>
+<script src="js/darkmode.js"></script>
+
+</body>
+
+</html>

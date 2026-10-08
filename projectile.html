@@ -1,0 +1,2700 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Projectile Motion | ENGI HUB
+    </title>
+
+
+    <style>
+
+        /* =====================================================
+           RESET
+        ===================================================== */
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            font-family:
+                Arial,
+                "Noto Sans Thai",
+                sans-serif;
+
+            background: #f1f5f9;
+
+            color: #0f172a;
+
+            line-height: 1.6;
+
+            transition:
+                background 0.25s ease,
+                color 0.25s ease;
+        }
+
+
+        button,
+        input {
+            font-family: inherit;
+        }
+
+
+        button:focus-visible,
+        input:focus-visible,
+        a:focus-visible {
+
+            outline: 3px solid
+                rgba(37, 99, 235, 0.35);
+
+            outline-offset: 3px;
+        }
+
+
+        /* =====================================================
+           NAVBAR
+        ===================================================== */
+
+        nav {
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 1000;
+
+            min-height: 70px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            padding:
+                0 5%;
+
+            background:
+                rgba(15, 23, 42, 0.97);
+
+            color: white;
+
+            box-shadow:
+                0 4px 20px
+                rgba(15, 23, 42, 0.18);
+
+            backdrop-filter: blur(12px);
+        }
+
+
+        .logo {
+
+            font-size: 21px;
+
+            font-weight: 800;
+
+            white-space: nowrap;
+
+            letter-spacing: 0.2px;
+        }
+
+
+        .nav-links {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: flex-end;
+
+            flex-wrap: wrap;
+
+            gap: 22px;
+        }
+
+
+        .nav-links a {
+
+            color: #e2e8f0;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            transition:
+                color 0.2s ease,
+                transform 0.2s ease;
+        }
+
+
+        .nav-links a:hover {
+
+            color: #60a5fa;
+
+            transform:
+                translateY(-1px);
+        }
+
+
+        .back-link {
+
+            color:
+                #93c5fd !important;
+
+            font-weight: 700;
+        }
+
+
+        /* =====================================================
+           HERO
+        ===================================================== */
+
+        .hero {
+
+            position: relative;
+
+            overflow: hidden;
+
+            padding:
+                72px 20px 66px;
+
+            text-align: center;
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #020617 0%,
+                    #0f172a 42%,
+                    #1d4ed8 100%
+                );
+        }
+
+
+        .hero::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 420px;
+
+            height: 420px;
+
+            right: -150px;
+
+            top: -220px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(96, 165, 250, 0.13);
+
+            pointer-events: none;
+        }
+
+
+        .hero::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 280px;
+
+            height: 280px;
+
+            left: -140px;
+
+            bottom: -180px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(59, 130, 246, 0.12);
+
+            pointer-events: none;
+        }
+
+
+        .hero-content {
+
+            position: relative;
+
+            z-index: 2;
+
+            max-width: 950px;
+
+            margin: auto;
+        }
+
+
+        .hero-kicker {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding:
+                7px 13px;
+
+            margin-bottom: 16px;
+
+            border:
+                1px solid
+                rgba(147, 197, 253, 0.25);
+
+            border-radius: 999px;
+
+            background:
+                rgba(255, 255, 255, 0.08);
+
+            color: #bfdbfe;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            letter-spacing: 0.7px;
+
+            text-transform: uppercase;
+        }
+
+
+        .hero h1 {
+
+            margin:
+                0 0 14px;
+
+            font-size:
+                clamp(32px, 5vw, 48px);
+
+            line-height: 1.15;
+
+            letter-spacing:
+                -0.8px;
+        }
+
+
+        .hero p {
+
+            max-width: 850px;
+
+            margin: auto;
+
+            color: #dbeafe;
+
+            line-height: 1.85;
+
+            font-size: 16px;
+        }
+
+
+        /* =====================================================
+           BACK BUTTON
+        ===================================================== */
+
+        .back-section {
+
+            max-width: 1450px;
+
+            margin:
+                24px auto 0;
+
+            padding:
+                0 20px;
+        }
+
+
+        .back-button {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding:
+                10px 15px;
+
+            border:
+                1px solid #cbd5e1;
+
+            border-radius: 10px;
+
+            background: white;
+
+            color: #334155;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            transition:
+                0.2s ease;
+        }
+
+
+        .back-button:hover {
+
+            color: #2563eb;
+
+            border-color: #93c5fd;
+
+            transform:
+                translateX(-2px);
+
+            box-shadow:
+                0 5px 15px
+                rgba(15, 23, 42, 0.07);
+        }
+
+
+        /* =====================================================
+           MAIN
+        ===================================================== */
+
+        .page-container {
+
+            max-width: 1450px;
+
+            margin:
+                28px auto 60px;
+
+            padding:
+                0 20px;
+        }
+
+
+        /* =====================================================
+           COMMON CARD
+        ===================================================== */
+
+        .control-card,
+        .simulation-card,
+        .graph-section,
+        .formula-section {
+
+            background: white;
+
+            border:
+                1px solid #e2e8f0;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 10px 30px
+                rgba(15, 23, 42, 0.07);
+        }
+
+
+        /* =====================================================
+           SECTION HEADER
+        ===================================================== */
+
+        .section-heading {
+
+            display: flex;
+
+            align-items: flex-start;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            margin-bottom: 22px;
+        }
+
+
+        .section-heading-left {
+
+            min-width: 0;
+        }
+
+
+        .section-eyebrow {
+
+            display: block;
+
+            margin-bottom: 3px;
+
+            color: #2563eb;
+
+            font-size: 11px;
+
+            font-weight: 800;
+
+            letter-spacing: 1px;
+
+            text-transform: uppercase;
+        }
+
+
+        .section-heading h2 {
+
+            margin: 0;
+
+            color: #0f172a;
+
+            font-size: 23px;
+
+            line-height: 1.3;
+        }
+
+
+        .section-heading p {
+
+            margin:
+                5px 0 0;
+
+            color: #64748b;
+
+            font-size: 13px;
+        }
+
+
+        /* =====================================================
+           CONTROL CARD
+        ===================================================== */
+
+        .control-card {
+
+            padding:
+                27px;
+
+            margin-bottom:
+                25px;
+        }
+
+
+        .control-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 18px;
+        }
+
+
+        .control-group {
+
+            position: relative;
+
+            padding:
+                20px;
+
+            border:
+                1px solid #e2e8f0;
+
+            border-radius: 15px;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #ffffff,
+                    #f8fafc
+                );
+
+            transition:
+                border-color 0.2s ease,
+                box-shadow 0.2s ease,
+                transform 0.2s ease;
+        }
+
+
+        .control-group:hover {
+
+            border-color:
+                #bfdbfe;
+
+            box-shadow:
+                0 8px 20px
+                rgba(37, 99, 235, 0.07);
+
+            transform:
+                translateY(-2px);
+        }
+
+
+        .control-group label {
+
+            display: block;
+
+            margin-bottom:
+                10px;
+
+            color: #334155;
+
+            font-size: 14px;
+
+            font-weight: 800;
+        }
+
+
+        .control-group input {
+
+            width: 100%;
+
+            min-height: 46px;
+
+            padding:
+                10px 13px;
+
+            border:
+                1px solid #cbd5e1;
+
+            border-radius: 10px;
+
+            background: white;
+
+            color: #0f172a;
+
+            font-size: 16px;
+
+            transition:
+                border-color 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+
+        .control-group input:focus {
+
+            outline: none;
+
+            border-color:
+                #2563eb;
+
+            box-shadow:
+                0 0 0 4px
+                rgba(37, 99, 235, 0.10);
+        }
+
+
+        .control-group input[type="range"] {
+
+            min-height: auto;
+
+            padding: 0;
+
+            border: none;
+
+            box-shadow: none;
+
+            accent-color:
+                #2563eb;
+
+            cursor: pointer;
+        }
+
+
+        .input-value {
+
+            display: block;
+
+            margin-top:
+                9px;
+
+            color: #64748b;
+
+            font-size: 12px;
+
+            font-weight: 600;
+        }
+
+
+        /* =====================================================
+           BUTTONS
+        ===================================================== */
+
+        .button-row {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 10px;
+
+            margin-top:
+                20px;
+        }
+
+
+        button {
+
+            min-height: 44px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            padding:
+                11px 19px;
+
+            font-size: 14px;
+
+            font-weight: 800;
+
+            cursor: pointer;
+
+            transition:
+                transform 0.18s ease,
+                box-shadow 0.18s ease,
+                background 0.18s ease;
+        }
+
+
+        button:not(:disabled):hover {
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 7px 16px
+                rgba(15, 23, 42, 0.14);
+        }
+
+
+        button:not(:disabled):active {
+
+            transform:
+                translateY(0);
+        }
+
+
+        #startButton {
+
+            background:
+                #2563eb;
+
+            color: white;
+        }
+
+
+        #startButton:hover {
+
+            background:
+                #1d4ed8;
+        }
+
+
+        #pauseButton {
+
+            background:
+                #f59e0b;
+
+            color: white;
+        }
+
+
+        #pauseButton:hover {
+
+            background:
+                #d97706;
+        }
+
+
+        #resumeButton {
+
+            background:
+                #16a34a;
+
+            color: white;
+        }
+
+
+        #resumeButton:hover {
+
+            background:
+                #15803d;
+        }
+
+
+        #resetButton {
+
+            background:
+                #64748b;
+
+            color: white;
+        }
+
+
+        #resetButton:hover {
+
+            background:
+                #475569;
+        }
+
+
+        button:disabled {
+
+            opacity:
+                0.42;
+
+            cursor:
+                not-allowed;
+        }
+
+
+        /* =====================================================
+           STATUS
+        ===================================================== */
+
+        .status-box {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            margin-top:
+                18px;
+
+            padding:
+                12px 15px;
+
+            border:
+                1px solid #e2e8f0;
+
+            border-radius: 11px;
+
+            background:
+                #f8fafc;
+
+            color: #475569;
+
+            font-size: 13px;
+
+            font-weight: 700;
+        }
+
+
+        .status-dot {
+
+            flex:
+                0 0 auto;
+
+            width: 11px;
+
+            height: 11px;
+
+            border-radius: 50%;
+
+            background:
+                #94a3b8;
+        }
+
+
+        .status-dot.running {
+
+            background:
+                #22c55e;
+
+            box-shadow:
+                0 0 0 5px
+                rgba(34, 197, 94, 0.10),
+                0 0 12px
+                rgba(34, 197, 94, 0.55);
+        }
+
+
+        .status-dot.paused {
+
+            background:
+                #f59e0b;
+
+            box-shadow:
+                0 0 0 5px
+                rgba(245, 158, 11, 0.10),
+                0 0 12px
+                rgba(245, 158, 11, 0.45);
+        }
+
+
+        .status-dot.finished {
+
+            background:
+                #2563eb;
+
+            box-shadow:
+                0 0 0 5px
+                rgba(37, 99, 235, 0.10);
+        }
+
+
+        /* =====================================================
+           SIMULATION LAYOUT
+        ===================================================== */
+
+        .simulation-layout {
+
+            display: grid;
+
+            grid-template-columns:
+                minmax(0, 1.75fr)
+                minmax(360px, 1fr);
+
+            gap: 25px;
+
+            align-items:
+                start;
+        }
+
+
+        .simulation-card {
+
+            padding:
+                22px;
+        }
+
+
+        .simulation-card > h2 {
+
+            margin:
+                0 0 17px;
+
+            color:
+                #0f172a;
+
+            font-size:
+                21px;
+        }
+
+
+        /* =====================================================
+           SIMULATION CANVAS
+        ===================================================== */
+
+        .canvas-wrapper {
+
+            position: relative;
+
+            width: 100%;
+
+            overflow: hidden;
+
+            border:
+                1px solid #bfdbfe;
+
+            border-radius:
+                15px;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #dbeafe,
+                    #eff6ff
+                );
+
+            box-shadow:
+                inset 0 0 0 1px
+                rgba(255,255,255,0.45);
+        }
+
+
+        #simulationCanvas {
+
+            display: block;
+
+            width: 100%;
+
+            height: 550px;
+        }
+
+
+        /* =====================================================
+           REALTIME DATA
+        ===================================================== */
+
+        .realtime-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 11px;
+        }
+
+
+        .data-card {
+
+            padding:
+                15px;
+
+            border:
+                1px solid #e2e8f0;
+
+            border-radius:
+                12px;
+
+            background:
+                #f8fafc;
+
+            transition:
+                border-color 0.2s ease,
+                background 0.2s ease;
+        }
+
+
+        .data-card:hover {
+
+            border-color:
+                #bfdbfe;
+
+            background:
+                #f8fbff;
+        }
+
+
+        .data-label {
+
+            display: block;
+
+            margin-bottom:
+                5px;
+
+            color:
+                #64748b;
+
+            font-size:
+                12px;
+
+            font-weight:
+                700;
+        }
+
+
+        .data-value {
+
+            display: block;
+
+            color:
+                #0f172a;
+
+            font-size:
+                20px;
+
+            font-weight:
+                800;
+
+            line-height:
+                1.25;
+        }
+
+
+        /* =====================================================
+           RESULTS
+        ===================================================== */
+
+        .results-section {
+
+            margin-top:
+                23px;
+        }
+
+
+        .results-section h2 {
+
+            margin:
+                0 0 13px;
+
+            font-size:
+                18px;
+        }
+
+
+        .results-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 10px;
+        }
+
+
+        .result-card {
+
+            position: relative;
+
+            overflow: hidden;
+
+            padding:
+                17px 12px;
+
+            border:
+                1px solid #bfdbfe;
+
+            border-radius:
+                13px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #eff6ff,
+                    #dbeafe
+                );
+
+            text-align:
+                center;
+        }
+
+
+        .result-card::before {
+
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+
+            top: 0;
+
+            width: 100%;
+
+            height: 3px;
+
+            background:
+                #2563eb;
+        }
+
+
+        .result-label {
+
+            display: block;
+
+            margin-bottom:
+                7px;
+
+            color:
+                #475569;
+
+            font-size:
+                12px;
+
+            font-weight:
+                700;
+        }
+
+
+        .result-value {
+
+            display: block;
+
+            color:
+                #1d4ed8;
+
+            font-size:
+                22px;
+
+            font-weight:
+                900;
+        }
+
+
+        /* =====================================================
+           APEX
+        ===================================================== */
+
+        .apex-section {
+
+            margin-top:
+                20px;
+
+            padding:
+                18px;
+
+            border:
+                1px solid #e2e8f0;
+
+            border-radius:
+                14px;
+
+            background:
+                #f8fafc;
+        }
+
+
+        .apex-section h3 {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            margin:
+                0 0 13px;
+
+            color:
+                #334155;
+
+            font-size:
+                16px;
+        }
+
+
+        .apex-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap:
+                10px;
+        }
+
+
+        /* =====================================================
+           GRAPH
+        ===================================================== */
+
+        .graph-section {
+
+            margin-top:
+                25px;
+
+            padding:
+                26px;
+        }
+
+
+        .graph-header {
+
+            display: flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                space-between;
+
+            gap:
+                18px;
+
+            margin-bottom:
+                17px;
+        }
+
+
+        .graph-header h2 {
+
+            margin:
+                0;
+
+            color:
+                #0f172a;
+
+            font-size:
+                22px;
+        }
+
+
+        .graph-buttons {
+
+            display: flex;
+
+            flex-wrap:
+                wrap;
+
+            gap:
+                7px;
+        }
+
+
+        .graph-button {
+
+            min-height:
+                38px;
+
+            padding:
+                7px 12px;
+
+            border:
+                1px solid #cbd5e1;
+
+            background:
+                #f8fafc;
+
+            color:
+                #334155;
+
+            border-radius:
+                9px;
+
+            font-size:
+                12px;
+
+            font-weight:
+                800;
+        }
+
+
+        .graph-button:hover {
+
+            border-color:
+                #2563eb;
+
+            color:
+                #2563eb;
+
+            background:
+                #eff6ff;
+        }
+
+
+        .graph-current {
+
+            margin-bottom:
+                12px;
+
+            padding:
+                12px 15px;
+
+            border:
+                1px solid #dbeafe;
+
+            border-radius:
+                11px;
+
+            background:
+                #eff6ff;
+        }
+
+
+        .graph-current-title {
+
+            color:
+                #64748b;
+
+            font-size:
+                12px;
+
+            font-weight:
+                700;
+        }
+
+
+        .graph-current-value {
+
+            margin-top:
+                3px;
+
+            color:
+                #2563eb;
+
+            font-size:
+                20px;
+
+            font-weight:
+                900;
+        }
+
+
+        .graph-wrapper {
+
+            position:
+                relative;
+
+            width:
+                100%;
+
+            overflow:
+                hidden;
+
+            border:
+                1px solid #e2e8f0;
+
+            border-radius:
+                13px;
+
+            background:
+                #ffffff;
+        }
+
+
+        #graphCanvas {
+
+            display:
+                block;
+
+            width:
+                100%;
+
+            height:
+                400px;
+        }
+
+
+        #graphEmpty {
+
+            text-align:
+                center;
+
+            padding:
+                35px 20px;
+
+            color:
+                #64748b;
+
+            font-size:
+                13px;
+        }
+
+
+        /* =====================================================
+           FORMULAS
+        ===================================================== */
+
+        .formula-section {
+
+            margin-top:
+                25px;
+
+            padding:
+                27px;
+        }
+
+
+        .formula-section h2 {
+
+            margin:
+                0 0 18px;
+
+            color:
+                #0f172a;
+
+            font-size:
+                22px;
+        }
+
+
+        .formula-grid {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap:
+                11px;
+        }
+
+
+        .formula {
+
+            padding:
+                17px 18px;
+
+            border:
+                1px solid #e2e8f0;
+
+            border-radius:
+                11px;
+
+            background:
+                #f8fafc;
+
+            color:
+                #0f172a;
+
+            font-family:
+                "Times New Roman",
+                serif;
+
+            font-size:
+                18px;
+
+            transition:
+                border-color 0.2s ease,
+                background 0.2s ease,
+                transform 0.2s ease;
+        }
+
+
+        .formula:hover {
+
+            border-color:
+                #bfdbfe;
+
+            background:
+                #eff6ff;
+
+            transform:
+                translateY(-1px);
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        footer {
+
+            margin-top:
+                65px;
+
+            padding:
+                35px 20px;
+
+            text-align:
+                center;
+
+            background:
+                #0f172a;
+
+            color:
+                #94a3b8;
+
+            font-size:
+                13px;
+        }
+
+
+        footer strong {
+
+            color:
+                white;
+
+            font-size:
+                15px;
+        }
+
+
+        /* =====================================================
+           DARK MODE
+        ===================================================== */
+
+        body.dark-mode {
+
+            background:
+                #020617;
+
+            color:
+                #e2e8f0;
+        }
+
+
+        body.dark-mode .back-button,
+        body.dark-mode .control-card,
+        body.dark-mode .simulation-card,
+        body.dark-mode .graph-section,
+        body.dark-mode .formula-section {
+
+            background:
+                #0f172a;
+
+            border-color:
+                #1e293b;
+
+            box-shadow:
+                0 10px 30px
+                rgba(0, 0, 0, 0.25);
+        }
+
+
+        body.dark-mode .section-heading h2,
+        body.dark-mode .simulation-card > h2,
+        body.dark-mode .graph-header h2,
+        body.dark-mode .formula-section h2 {
+
+            color:
+                #f8fafc;
+        }
+
+
+        body.dark-mode .section-heading p {
+
+            color:
+                #94a3b8;
+        }
+
+
+        body.dark-mode .back-button {
+
+            color:
+                #cbd5e1;
+
+            border-color:
+                #334155;
+        }
+
+
+        body.dark-mode .back-button:hover {
+
+            color:
+                #60a5fa;
+
+            border-color:
+                #2563eb;
+        }
+
+
+        body.dark-mode .control-group {
+
+            background:
+                #111827;
+
+            border-color:
+                #1e293b;
+        }
+
+
+        body.dark-mode .control-group:hover {
+
+            border-color:
+                #334155;
+        }
+
+
+        body.dark-mode .control-group label {
+
+            color:
+                #e2e8f0;
+        }
+
+
+        body.dark-mode .control-group input {
+
+            background:
+                #020617;
+
+            border-color:
+                #334155;
+
+            color:
+                #f8fafc;
+        }
+
+
+        body.dark-mode .input-value {
+
+            color:
+                #94a3b8;
+        }
+
+
+        body.dark-mode .status-box,
+        body.dark-mode .data-card,
+        body.dark-mode .apex-section,
+        body.dark-mode .formula,
+        body.dark-mode .graph-button {
+
+            background:
+                #111827;
+
+            border-color:
+                #1e293b;
+
+            color:
+                #cbd5e1;
+        }
+
+
+        body.dark-mode .data-card:hover {
+
+            background:
+                #172033;
+
+            border-color:
+                #334155;
+        }
+
+
+        body.dark-mode .data-label,
+        body.dark-mode .result-label,
+        body.dark-mode .graph-current-title {
+
+            color:
+                #94a3b8;
+        }
+
+
+        body.dark-mode .data-value {
+
+            color:
+                #f8fafc;
+        }
+
+
+        body.dark-mode .result-card {
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #172554,
+                    #1e3a8a
+                );
+
+            border-color:
+                #1d4ed8;
+        }
+
+
+        body.dark-mode .result-label {
+
+            color:
+                #bfdbfe;
+        }
+
+
+        body.dark-mode .result-value {
+
+            color:
+                #dbeafe;
+        }
+
+
+        body.dark-mode .graph-current {
+
+            background:
+                #172554;
+
+            border-color:
+                #1d4ed8;
+        }
+
+
+        body.dark-mode .graph-current-value {
+
+            color:
+                #60a5fa;
+        }
+
+
+        body.dark-mode .graph-wrapper {
+
+            background:
+                #020617;
+
+            border-color:
+                #1e293b;
+        }
+
+
+        body.dark-mode .formula {
+
+            color:
+                #e2e8f0;
+        }
+
+
+        body.dark-mode .formula:hover {
+
+            background:
+                #172554;
+
+            border-color:
+                #2563eb;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 1100px) {
+
+            .simulation-layout {
+
+                grid-template-columns:
+                    1fr;
+            }
+        }
+
+
+        @media (max-width: 850px) {
+
+            .control-grid {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .results-grid {
+
+                grid-template-columns:
+                    repeat(3, 1fr);
+            }
+
+
+            .apex-grid {
+
+                grid-template-columns:
+                    repeat(3, 1fr);
+            }
+
+
+            .formula-grid {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .graph-header {
+
+                align-items:
+                    flex-start;
+
+                flex-direction:
+                    column;
+            }
+        }
+
+
+        @media (max-width: 650px) {
+
+            nav {
+
+                padding:
+                    12px 15px;
+
+                align-items:
+                    flex-start;
+
+                flex-direction:
+                    column;
+            }
+
+
+            .nav-links {
+
+                width:
+                    100%;
+
+                justify-content:
+                    flex-start;
+
+                gap:
+                    12px;
+            }
+
+
+            .nav-links a {
+
+                font-size:
+                    11px;
+            }
+
+
+            .hero {
+
+                padding:
+                    52px 18px 48px;
+            }
+
+
+            .hero h1 {
+
+                font-size:
+                    31px;
+            }
+
+
+            .hero p {
+
+                font-size:
+                    14px;
+            }
+
+
+            .page-container {
+
+                padding:
+                    0 13px;
+            }
+
+
+            .back-section {
+
+                padding:
+                    0 13px;
+            }
+
+
+            .control-card,
+            .simulation-card,
+            .graph-section,
+            .formula-section {
+
+                border-radius:
+                    15px;
+
+                padding:
+                    18px;
+            }
+
+
+            .realtime-grid {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .results-grid {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .apex-grid {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            #simulationCanvas {
+
+                height:
+                    400px;
+            }
+
+
+            #graphCanvas {
+
+                height:
+                    300px;
+            }
+
+
+            .button-row button {
+
+                flex:
+                    1 1 130px;
+            }
+
+
+            .graph-buttons {
+
+                width:
+                    100%;
+            }
+
+
+            .graph-button {
+
+                flex:
+                    1 1 70px;
+            }
+        }
+
+
+        /* =====================================================
+           REDUCED MOTION
+        ===================================================== */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            html {
+
+                scroll-behavior:
+                    auto;
+            }
+
+
+            *,
+            *::before,
+            *::after {
+
+                transition-duration:
+                    0.01ms !important;
+
+                animation-duration:
+                    0.01ms !important;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         NAVBAR
+    ===================================================== -->
+
+    <nav>
+
+        <div class="logo">
+            ⚙ ENGI HUB
+        </div>
+
+
+        <div class="nav-links">
+
+            <a
+                href="physics.html"
+                class="back-link"
+            >
+                ← Physics Simulation
+            </a>
+
+
+            <a href="index.html">
+                Home
+            </a>
+
+
+            <a href="formulas.html">
+                Formulas
+            </a>
+
+
+            <a href="history.html">
+                History
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =====================================================
+         HERO
+    ===================================================== -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="hero-kicker">
+                🧪 PHYSICS LABORATORY
+            </div>
+
+
+            <h1>
+                🚀 Projectile Motion
+            </h1>
+
+
+            <p>
+                จำลองการเคลื่อนที่แบบโปรเจกไทล์
+                พร้อมวิเคราะห์วิถีการเคลื่อนที่ ตำแหน่ง
+                ความเร็ว จุดสูงสุด ระยะทาง
+                และกราฟแบบ Real-time
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         BACK BUTTON
+    ===================================================== -->
+
+    <div class="back-section">
+
+        <a
+            href="physics.html"
+            class="back-button"
+        >
+            ← กลับไป Physics Simulation
+        </a>
+
+    </div>
+
+
+    <!-- =====================================================
+         MAIN
+    ===================================================== -->
+
+    <main class="page-container">
+
+
+        <!-- =================================================
+             CONTROLS
+        ================================================== -->
+
+        <section class="control-card">
+
+            <div class="section-heading">
+
+                <div class="section-heading-left">
+
+                    <span class="section-eyebrow">
+                        Simulation Setup
+                    </span>
+
+                    <h2>
+                        ⚙ Simulation Parameters
+                    </h2>
+
+                    <p>
+                        กำหนดค่าพื้นฐานก่อนเริ่มการทดลอง
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="control-grid">
+
+
+                <!-- VELOCITY -->
+
+                <div class="control-group">
+
+                    <label for="initialVelocity">
+                        ความเร็วต้น v₀ (m/s)
+                    </label>
+
+
+                    <input
+                        type="number"
+                        id="initialVelocity"
+                        value="20"
+                        min="1"
+                        max="100"
+                        step="0.1"
+                    >
+
+
+                    <span class="input-value">
+                        ความเร็วเริ่มต้นของวัตถุ
+                    </span>
+
+                </div>
+
+
+                <!-- ANGLE -->
+
+                <div class="control-group">
+
+                    <label for="launchAngle">
+                        มุมยิง θ (°)
+                    </label>
+
+
+                    <input
+                        type="number"
+                        id="launchAngle"
+                        value="45"
+                        min="1"
+                        max="89"
+                        step="1"
+                    >
+
+
+                    <span class="input-value">
+                        ช่วงที่ใช้ได้ 1° – 89°
+                    </span>
+
+                </div>
+
+
+                <!-- GRAVITY -->
+
+                <div class="control-group">
+
+                    <label for="gravity">
+                        ความเร่งโน้มถ่วง g (m/s²)
+                    </label>
+
+
+                    <input
+                        type="number"
+                        id="gravity"
+                        value="9.81"
+                        min="0.1"
+                        max="20"
+                        step="0.01"
+                    >
+
+
+                    <span class="input-value">
+                        ค่าโลก ≈ 9.81 m/s²
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- BUTTONS -->
+
+            <div class="button-row">
+
+                <button id="startButton">
+                    ▶ Start
+                </button>
+
+
+                <button
+                    id="pauseButton"
+                    disabled
+                >
+                    ⏸ Pause
+                </button>
+
+
+                <button
+                    id="resumeButton"
+                    disabled
+                >
+                    ▶ Resume
+                </button>
+
+
+                <button id="resetButton">
+                    ↻ Reset
+                </button>
+
+            </div>
+
+
+            <!-- STATUS -->
+
+            <div class="status-box">
+
+                <span
+                    id="statusDot"
+                    class="status-dot"
+                ></span>
+
+
+                <span id="statusText">
+                    พร้อมเริ่มการจำลอง
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             SIMULATION + REALTIME
+        ================================================== -->
+
+        <div class="simulation-layout">
+
+
+            <!-- SIMULATION -->
+
+            <section class="simulation-card">
+
+                <div class="section-heading">
+
+                    <div class="section-heading-left">
+
+                        <span class="section-eyebrow">
+                            Visual Experiment
+                        </span>
+
+                        <h2>
+                            🎯 Simulation
+                        </h2>
+
+                        <p>
+                            วิถีการเคลื่อนที่ของวัตถุแบบ Real-time
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="canvas-wrapper">
+
+                    <canvas
+                        id="simulationCanvas"
+                    ></canvas>
+
+                </div>
+
+            </section>
+
+
+            <!-- REALTIME DATA -->
+
+            <section class="simulation-card">
+
+                <div class="section-heading">
+
+                    <div class="section-heading-left">
+
+                        <span class="section-eyebrow">
+                            Live Telemetry
+                        </span>
+
+                        <h2>
+                            📡 Real-time Data
+                        </h2>
+
+                        <p>
+                            ค่าที่เปลี่ยนแปลงระหว่างการทดลอง
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="realtime-grid">
+
+
+                    <div class="data-card">
+
+                        <span class="data-label">
+                            เวลา
+                        </span>
+
+                        <span
+                            class="data-value"
+                            id="realtimeTime"
+                        >
+                            0.00 s
+                        </span>
+
+                    </div>
+
+
+                    <div class="data-card">
+
+                        <span class="data-label">
+                            ตำแหน่ง X
+                        </span>
+
+                        <span
+                            class="data-value"
+                            id="realtimeX"
+                        >
+                            0.00 m
+                        </span>
+
+                    </div>
+
+
+                    <div class="data-card">
+
+                        <span class="data-label">
+                            ตำแหน่ง Y
+                        </span>
+
+                        <span
+                            class="data-value"
+                            id="realtimeY"
+                        >
+                            0.00 m
+                        </span>
+
+                    </div>
+
+
+                    <div class="data-card">
+
+                        <span class="data-label">
+                            ความเร็ว Vx
+                        </span>
+
+                        <span
+                            class="data-value"
+                            id="realtimeVx"
+                        >
+                            0.00 m/s
+                        </span>
+
+                    </div>
+
+
+                    <div class="data-card">
+
+                        <span class="data-label">
+                            ความเร็ว Vy
+                        </span>
+
+                        <span
+                            class="data-value"
+                            id="realtimeVy"
+                        >
+                            0.00 m/s
+                        </span>
+
+                    </div>
+
+
+                    <div class="data-card">
+
+                        <span class="data-label">
+                            ความเร็วรวม V
+                        </span>
+
+                        <span
+                            class="data-value"
+                            id="realtimeV"
+                        >
+                            0.00 m/s
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- RESULTS -->
+
+                <div class="results-section">
+
+                    <h2>
+                        📊 Results
+                    </h2>
+
+
+                    <div class="results-grid">
+
+
+                        <div class="result-card">
+
+                            <span class="result-label">
+                                ระยะทางสูงสุด
+                            </span>
+
+                            <span
+                                class="result-value"
+                                id="rangeResult"
+                            >
+                                0.00 m
+                            </span>
+
+                        </div>
+
+
+                        <div class="result-card">
+
+                            <span class="result-label">
+                                ความสูงสูงสุด
+                            </span>
+
+                            <span
+                                class="result-value"
+                                id="heightResult"
+                            >
+                                0.00 m
+                            </span>
+
+                        </div>
+
+
+                        <div class="result-card">
+
+                            <span class="result-label">
+                                เวลาทั้งหมด
+                            </span>
+
+                            <span
+                                class="result-value"
+                                id="timeResult"
+                            >
+                                0.00 s
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- APEX -->
+
+                <div class="apex-section">
+
+                    <h3>
+                        🔝 จุดสูงสุดของวิถี
+                    </h3>
+
+
+                    <div class="apex-grid">
+
+
+                        <div class="data-card">
+
+                            <span class="data-label">
+                                เวลาที่ถึงจุดสูงสุด
+                            </span>
+
+                            <span
+                                class="data-value"
+                                id="apexTime"
+                            >
+                                0.00 s
+                            </span>
+
+                        </div>
+
+
+                        <div class="data-card">
+
+                            <span class="data-label">
+                                ตำแหน่ง X
+                            </span>
+
+                            <span
+                                class="data-value"
+                                id="apexX"
+                            >
+                                0.00 m
+                            </span>
+
+                        </div>
+
+
+                        <div class="data-card">
+
+                            <span class="data-label">
+                                ความสูง Y
+                            </span>
+
+                            <span
+                                class="data-value"
+                                id="apexY"
+                            >
+                                0.00 m
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+
+        <!-- =================================================
+             GRAPH
+        ================================================== -->
+
+        <section class="graph-section">
+
+            <div class="graph-header">
+
+                <div>
+
+                    <span class="section-eyebrow">
+                        Data Analysis
+                    </span>
+
+                    <h2>
+                        📈 Real-time Graph
+                    </h2>
+
+                </div>
+
+
+                <div class="graph-buttons">
+
+                    <button
+                        class="graph-button"
+                        data-graph="x"
+                    >
+                        X(t)
+                    </button>
+
+
+                    <button
+                        class="graph-button"
+                        data-graph="y"
+                    >
+                        Y(t)
+                    </button>
+
+
+                    <button
+                        class="graph-button"
+                        data-graph="vx"
+                    >
+                        Vx(t)
+                    </button>
+
+
+                    <button
+                        class="graph-button"
+                        data-graph="vy"
+                    >
+                        Vy(t)
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="graph-current">
+
+                <div
+                    id="graphCurrentTitle"
+                    class="graph-current-title"
+                >
+                    เลือกตัวแปร
+                </div>
+
+
+                <div
+                    id="graphCurrentValue"
+                    class="graph-current-value"
+                >
+                    -
+                </div>
+
+            </div>
+
+
+            <div class="graph-wrapper">
+
+                <canvas
+                    id="graphCanvas"
+                ></canvas>
+
+
+                <div id="graphEmpty">
+                    กด Start เพื่อเริ่มเก็บข้อมูลและแสดงกราฟ
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             FORMULAS
+        ================================================== -->
+
+        <section class="formula-section">
+
+            <div class="section-heading">
+
+                <div class="section-heading-left">
+
+                    <span class="section-eyebrow">
+                        Physics Reference
+                    </span>
+
+                    <h2>
+                        🧮 Physics Formulas
+                    </h2>
+
+                    <p>
+                        สมการสำคัญที่ใช้ในการจำลอง Projectile Motion
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="formula-grid">
+
+
+                <div class="formula">
+                    x = v₀ cos(θ)t
+                </div>
+
+
+                <div class="formula">
+                    y = v₀ sin(θ)t − ½gt²
+                </div>
+
+
+                <div class="formula">
+                    vₓ = v₀ cos(θ)
+                </div>
+
+
+                <div class="formula">
+                    vᵧ = v₀ sin(θ) − gt
+                </div>
+
+
+                <div class="formula">
+                    Hmax = v₀²sin²(θ) / 2g
+                </div>
+
+
+                <div class="formula">
+                    R = v₀²sin(2θ) / g
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =====================================================
+         FOOTER
+    ===================================================== -->
+
+    <footer>
+
+        <strong>
+            ⚙ ENGI HUB
+        </strong>
+
+        <br><br>
+
+        Engineering Calculation & Simulation Tools
+
+        <br>
+
+        © 2026 ENGI HUB
+
+    </footer>
+
+
+    <!-- =====================================================
+         PROJECTILE JAVASCRIPT
+    ===================================================== -->
+
+    <script src="js/physics/projectile.js"></script>
+
+
+</body>
+
+</html>

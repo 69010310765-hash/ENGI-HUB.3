@@ -1,0 +1,1863 @@
+```html
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Wave Simulation | ENGI HUB
+    </title>
+
+    <link
+        rel="icon"
+        href="data:,"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+
+    <style>
+
+        /* ==================================================
+           BASE
+        ================================================== */
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+            margin: 0;
+            font-family:
+                Arial,
+                "Noto Sans Thai",
+                sans-serif;
+            background: #f4f7fb;
+            color: #0f172a;
+        }
+
+
+        button,
+        input {
+            font-family: inherit;
+        }
+
+
+        button:focus-visible,
+        input:focus-visible {
+            outline: 3px solid rgba(37, 99, 235, 0.35);
+            outline-offset: 2px;
+        }
+
+
+        /* ==================================================
+           NAVBAR
+        ================================================== */
+
+        nav {
+            min-height: 70px;
+            padding: 0 30px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            background: #0f172a;
+            color: white;
+
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+            box-shadow:
+                0 4px 15px
+                rgba(15, 23, 42, 0.18);
+        }
+
+
+        .logo {
+            font-size: 21px;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+
+        .menu {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+        }
+
+
+        .menu a {
+            color: white !important;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+
+
+        .menu a:visited {
+            color: white !important;
+        }
+
+
+        .menu a:hover {
+            color: #60a5fa !important;
+        }
+
+
+        .dark-mode-btn {
+            width: 42px;
+            height: 42px;
+
+            border: 1px solid
+                rgba(255, 255, 255, 0.2);
+
+            border-radius: 10px;
+
+            background:
+                rgba(255, 255, 255, 0.08);
+
+            color: white;
+
+            cursor: pointer;
+            font-size: 18px;
+
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease;
+        }
+
+
+        .dark-mode-btn:hover {
+            background:
+                rgba(255, 255, 255, 0.16);
+
+            transform: translateY(-1px);
+        }
+
+
+        /* ==================================================
+           HERO
+        ================================================== */
+
+        .physics-header {
+            padding:
+                75px
+                20px
+                55px;
+
+            text-align: center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #0f172a,
+                    #1e3a8a
+                );
+
+            color: white;
+
+            position: relative;
+            overflow: hidden;
+        }
+
+
+        .physics-header::after {
+            content: "";
+
+            position: absolute;
+
+            width: 300px;
+            height: 300px;
+
+            right: -120px;
+            top: -150px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(96, 165, 250, 0.12);
+
+            pointer-events: none;
+        }
+
+
+        .header-badge {
+            display: inline-flex;
+            align-items: center;
+
+            padding:
+                7px
+                13px;
+
+            margin-bottom: 16px;
+
+            border-radius: 999px;
+
+            background:
+                rgba(255, 255, 255, 0.1);
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.18);
+
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 0.8px;
+        }
+
+
+        .physics-header h1 {
+            margin:
+                0
+                0
+                12px;
+
+            font-size: 44px;
+            line-height: 1.15;
+        }
+
+
+        .physics-header p {
+            max-width: 760px;
+
+            margin:
+                0
+                auto;
+
+            font-size: 17px;
+            line-height: 1.7;
+
+            opacity: 0.9;
+        }
+
+
+        /* ==================================================
+           MAIN
+        ================================================== */
+
+        .physics-container {
+            width: 100%;
+            max-width: 1200px;
+
+            margin:
+                0
+                auto;
+
+            padding:
+                42px
+                20px
+                80px;
+        }
+
+
+        .physics-grid {
+            display: grid;
+
+            grid-template-columns:
+                minmax(280px, 340px)
+                minmax(0, 1fr);
+
+            gap: 25px;
+
+            align-items: start;
+        }
+
+
+        /* ==================================================
+           CARD
+        ================================================== */
+
+        .physics-card {
+            background: white;
+
+            border:
+                1px solid
+                #e2e8f0;
+
+            border-radius: 18px;
+
+            padding: 25px;
+
+            box-shadow:
+                0 10px 30px
+                rgba(15, 23, 42, 0.07);
+        }
+
+
+        .physics-card h2 {
+            margin:
+                0
+                0
+                20px;
+
+            color: #0f172a;
+
+            font-size: 21px;
+        }
+
+
+        /* ==================================================
+           CONTROL PANEL
+        ================================================== */
+
+        .control-group {
+            margin-bottom: 23px;
+        }
+
+
+        .control-group label {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            margin-bottom: 9px;
+
+            color: #334155;
+
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+
+        .control-group input[type="range"] {
+            width: 100%;
+
+            cursor: pointer;
+
+            accent-color: #2563eb;
+        }
+
+
+        .value-display {
+            margin-top: 8px;
+
+            color: #2563eb;
+
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+
+        /* ==================================================
+           BUTTONS
+        ================================================== */
+
+        .button-group {
+            display: grid;
+
+            grid-template-columns:
+                1fr
+                1fr;
+
+            gap: 10px;
+
+            margin-top: 27px;
+        }
+
+
+        .button-group button {
+            min-height: 46px;
+
+            border: none;
+            border-radius: 10px;
+
+            padding:
+                10px
+                14px;
+
+            cursor: pointer;
+
+            font-size: 14px;
+            font-weight: 700;
+
+            transition:
+                transform 0.18s ease,
+                box-shadow 0.18s ease,
+                opacity 0.18s ease;
+        }
+
+
+        .button-group button:hover:not(:disabled) {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 6px 15px
+                rgba(15, 23, 42, 0.12);
+        }
+
+
+        #startButton {
+            background: #2563eb;
+            color: white;
+        }
+
+
+        #pauseButton {
+            background: #f59e0b;
+            color: white;
+        }
+
+
+        #resumeButton {
+            background: #16a34a;
+            color: white;
+        }
+
+
+        #resetButton {
+            background: #64748b;
+            color: white;
+        }
+
+
+        .button-group button:disabled {
+            opacity: 0.42;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+
+        /* ==================================================
+           STATUS
+        ================================================== */
+
+        .status {
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+
+            margin-top: 20px;
+
+            padding:
+                13px
+                14px;
+
+            border:
+                1px solid
+                #e2e8f0;
+
+            border-radius: 11px;
+
+            background: #f8fafc;
+
+            color: #475569;
+
+            font-size: 14px;
+        }
+
+
+        #statusDot {
+            width: 11px;
+            height: 11px;
+
+            border-radius: 50%;
+
+            background: #94a3b8;
+
+            flex-shrink: 0;
+        }
+
+
+        #statusDot.running {
+            background: #22c55e;
+            box-shadow:
+                0 0 0 5px
+                rgba(34, 197, 94, 0.12);
+        }
+
+
+        #statusDot.paused {
+            background: #f59e0b;
+            box-shadow:
+                0 0 0 5px
+                rgba(245, 158, 11, 0.12);
+        }
+
+
+        #statusDot.ready {
+            background: #94a3b8;
+        }
+
+
+        /* ==================================================
+           SIMULATION
+        ================================================== */
+
+        .simulation-card {
+            min-width: 0;
+        }
+
+
+        .simulation-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 15px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .simulation-heading h2 {
+            margin: 0;
+        }
+
+
+        .live-badge {
+            display: inline-flex;
+            align-items: center;
+
+            padding:
+                6px
+                10px;
+
+            border-radius: 999px;
+
+            background:
+                #eff6ff;
+
+            color:
+                #2563eb;
+
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+
+        .canvas-wrapper {
+            position: relative;
+
+            padding: 10px;
+
+            border:
+                1px solid
+                #e2e8f0;
+
+            border-radius: 16px;
+
+            background:
+                #f8fafc;
+        }
+
+
+        .simulation-canvas {
+            display: block;
+
+            width: 100%;
+            height: 430px;
+
+            border-radius: 11px;
+
+            background:
+                #ffffff;
+        }
+
+
+        /* ==================================================
+           REALTIME
+        ================================================== */
+
+        .realtime-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 12px;
+
+            margin-top: 18px;
+        }
+
+
+        .realtime-item {
+            padding:
+                15px;
+
+            border:
+                1px solid
+                #e2e8f0;
+
+            border-radius: 12px;
+
+            background:
+                #f8fafc;
+        }
+
+
+        .realtime-item span {
+            display: block;
+
+            margin-bottom: 6px;
+
+            color: #64748b;
+
+            font-size: 12px;
+        }
+
+
+        .realtime-item strong {
+            display: block;
+
+            color: #0f172a;
+
+            font-size: 17px;
+            line-height: 1.4;
+        }
+
+
+        /* ==================================================
+           RESULTS
+        ================================================== */
+
+        .results-section {
+            margin-top: 25px;
+        }
+
+
+        .results-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 15px;
+        }
+
+
+        .result-card {
+            padding:
+                19px
+                16px;
+
+            border:
+                1px solid
+                #e2e8f0;
+
+            border-radius: 14px;
+
+            background:
+                #f8fafc;
+
+            text-align: center;
+
+            transition:
+                transform 0.18s ease,
+                box-shadow 0.18s ease;
+        }
+
+
+        .result-card:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 8px 20px
+                rgba(15, 23, 42, 0.07);
+        }
+
+
+        .result-card span {
+            display: block;
+
+            margin-bottom: 8px;
+
+            color: #64748b;
+
+            font-size: 12px;
+        }
+
+
+        .result-card strong {
+            display: block;
+
+            color: #2563eb;
+
+            font-size: 21px;
+
+            line-height: 1.35;
+        }
+
+
+        /* ==================================================
+           GRAPH
+        ================================================== */
+
+        .graph-card {
+            margin-top: 25px;
+        }
+
+
+        .graph-buttons {
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 8px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .graph-button {
+            min-height: 42px;
+
+            padding:
+                8px
+                14px;
+
+            border:
+                1px solid
+                #cbd5e1;
+
+            border-radius: 9px;
+
+            background: white;
+
+            color: #334155;
+
+            cursor: pointer;
+
+            font-weight: 700;
+
+            transition:
+                background 0.18s ease,
+                color 0.18s ease,
+                border-color 0.18s ease;
+        }
+
+
+        .graph-button:hover {
+            border-color:
+                #93c5fd;
+        }
+
+
+        .graph-button.active {
+            background: #2563eb;
+
+            color: white;
+
+            border-color: #2563eb;
+        }
+
+
+        .graph-wrapper {
+            position: relative;
+
+            min-height: 300px;
+        }
+
+
+        #graphCanvas {
+            display: block;
+
+            width: 100%;
+            height: 300px;
+
+            border:
+                1px solid
+                #e2e8f0;
+
+            border-radius: 12px;
+
+            background:
+                #ffffff;
+        }
+
+
+        #graphEmpty {
+            position: absolute;
+
+            left: 50%;
+            top: 50%;
+
+            transform:
+                translate(
+                    -50%,
+                    -50%
+                );
+
+            width: 90%;
+
+            color: #64748b;
+
+            text-align: center;
+
+            font-size: 14px;
+
+            pointer-events: none;
+        }
+
+
+        .graph-current {
+            margin-top: 15px;
+
+            padding: 11px 15px;
+
+            border-radius: 10px;
+
+            background:
+                #f8fafc;
+
+            color: #64748b;
+
+            text-align: center;
+
+            font-size: 14px;
+        }
+
+
+        #graphCurrentTitle {
+            color: #334155;
+        }
+
+
+        #graphCurrentValue {
+            color: #2563eb;
+
+            font-weight: 800;
+        }
+
+
+        /* ==================================================
+           FORMULAS
+        ================================================== */
+
+        .formulas-card {
+            margin-top: 25px;
+        }
+
+
+        .formula-list {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 12px;
+        }
+
+
+        .formula-item {
+            padding:
+                16px;
+
+            border:
+                1px solid
+                #e2e8f0;
+
+            border-radius: 12px;
+
+            background:
+                #f8fafc;
+        }
+
+
+        .formula-item strong {
+            display: block;
+
+            margin-bottom: 6px;
+
+            color: #2563eb;
+
+            font-size: 18px;
+            line-height: 1.45;
+        }
+
+
+        .formula-item span {
+            color: #64748b;
+
+            font-size: 13px;
+        }
+
+
+        /* ==================================================
+           FOOTER
+        ================================================== */
+
+        .page-footer {
+            padding:
+                28px
+                20px;
+
+            background:
+                #0f172a;
+
+            color:
+                #94a3b8;
+
+            text-align: center;
+
+            font-size: 13px;
+        }
+
+
+        .page-footer strong {
+            color: white;
+        }
+
+
+        /* ==================================================
+           DARK MODE
+        ================================================== */
+
+        body.dark-mode {
+            background:
+                #020617;
+
+            color:
+                #e2e8f0;
+        }
+
+
+        body.dark-mode .physics-card {
+            background:
+                #0f172a;
+
+            border-color:
+                #1e293b;
+
+            box-shadow:
+                0 10px 30px
+                rgba(0, 0, 0, 0.25);
+        }
+
+
+        body.dark-mode .physics-card h2 {
+            color:
+                #f8fafc;
+        }
+
+
+        body.dark-mode .control-group label {
+            color:
+                #cbd5e1;
+        }
+
+
+        body.dark-mode .status,
+        body.dark-mode .realtime-item,
+        body.dark-mode .result-card,
+        body.dark-mode .formula-item,
+        body.dark-mode .graph-current {
+            background:
+                #111827;
+
+            border-color:
+                #1e293b;
+        }
+
+
+        body.dark-mode .status {
+            color:
+                #cbd5e1;
+        }
+
+
+        body.dark-mode .realtime-item span,
+        body.dark-mode .result-card span,
+        body.dark-mode .formula-item span,
+        body.dark-mode .graph-current {
+            color:
+                #94a3b8;
+        }
+
+
+        body.dark-mode .realtime-item strong {
+            color:
+                #f8fafc;
+        }
+
+
+        body.dark-mode .formula-item strong,
+        body.dark-mode .value-display,
+        body.dark-mode .result-card strong,
+        body.dark-mode #graphCurrentValue {
+            color:
+                #60a5fa;
+        }
+
+
+        body.dark-mode .canvas-wrapper {
+            background:
+                #111827;
+
+            border-color:
+                #1e293b;
+        }
+
+
+        body.dark-mode .simulation-canvas {
+            background:
+                #020617;
+        }
+
+
+        body.dark-mode #graphCanvas {
+            background:
+                #020617;
+
+            border-color:
+                #1e293b;
+        }
+
+
+        body.dark-mode .graph-button {
+            background:
+                #111827;
+
+            color:
+                #cbd5e1;
+
+            border-color:
+                #334155;
+        }
+
+
+        body.dark-mode .graph-button.active {
+            background:
+                #2563eb;
+
+            color:
+                white;
+
+            border-color:
+                #2563eb;
+        }
+
+
+        body.dark-mode #graphCurrentTitle {
+            color:
+                #cbd5e1;
+        }
+
+
+        body.dark-mode .live-badge {
+            background:
+                rgba(37, 99, 235, 0.15);
+
+            color:
+                #60a5fa;
+        }
+
+
+        /* ==================================================
+           RESPONSIVE
+        ================================================== */
+
+        @media (max-width: 900px) {
+
+            .physics-grid {
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .realtime-grid,
+            .results-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+        }
+
+
+        @media (max-width: 700px) {
+
+            nav {
+                padding:
+                    0
+                    16px;
+            }
+
+
+            .menu {
+                gap: 10px;
+            }
+
+
+            .menu a {
+                font-size: 12px;
+            }
+
+
+            .logo {
+                font-size: 17px;
+            }
+
+
+            .physics-header {
+                padding:
+                    55px
+                    18px
+                    42px;
+            }
+
+
+            .physics-header h1 {
+                font-size: 34px;
+            }
+
+
+            .physics-header p {
+                font-size: 15px;
+            }
+
+
+            .physics-container {
+                padding:
+                    28px
+                    15px
+                    55px;
+            }
+
+
+            .simulation-heading {
+                align-items:
+                    flex-start;
+
+                flex-direction:
+                    column;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .realtime-grid,
+            .results-grid,
+            .formula-list {
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .simulation-canvas {
+                height:
+                    320px;
+            }
+
+
+            #graphCanvas {
+                height:
+                    260px;
+            }
+
+
+            .button-group {
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .physics-card {
+                padding:
+                    20px;
+            }
+
+        }
+
+
+        @media (prefers-reduced-motion: reduce) {
+
+            html {
+                scroll-behavior:
+                    auto;
+            }
+
+
+            *,
+            *::before,
+            *::after {
+                transition-duration:
+                    0.01ms !important;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ==================================================
+         NAVBAR
+    ================================================== -->
+
+    <nav>
+
+        <div class="logo">
+            ⚙ ENGI HUB
+        </div>
+
+
+        <div class="menu">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="index.html#tools">
+                Tools
+            </a>
+
+            <a href="formulas.html">
+                Formulas
+            </a>
+
+            <a href="history.html">
+                History
+            </a>
+
+            <a href="index.html#about">
+                About
+            </a>
+
+
+            <button
+                id="darkModeBtn"
+                class="dark-mode-btn"
+                type="button"
+                aria-label="เปลี่ยนโหมดสี"
+            >
+                🌙
+            </button>
+
+        </div>
+
+    </nav>
+
+
+    <!-- ==================================================
+         HERO
+    ================================================== -->
+
+    <header class="physics-header">
+
+        <div class="header-badge">
+            ENGINEERING PHYSICS LAB
+        </div>
+
+
+        <h1>
+            🌊 Wave Simulation
+        </h1>
+
+
+        <p>
+            การจำลองคลื่นและความสัมพันธ์ระหว่าง
+            Amplitude, Frequency, Wavelength
+            และ Wave Speed
+        </p>
+
+    </header>
+
+
+    <!-- ==================================================
+         MAIN
+    ================================================== -->
+
+    <main class="physics-container">
+
+
+        <!-- ==================================================
+             CONTROLS + SIMULATION
+        ================================================== -->
+
+        <div class="physics-grid">
+
+
+            <!-- =========================
+                 PARAMETERS
+            ========================== -->
+
+            <section class="physics-card">
+
+                <h2>
+                    ⚙ Parameters
+                </h2>
+
+
+                <!-- Amplitude -->
+
+                <div class="control-group">
+
+                    <label for="amplitude">
+                        <span>Amplitude</span>
+                    </label>
+
+
+                    <input
+                        id="amplitude"
+                        type="range"
+                        min="0.1"
+                        max="2"
+                        step="0.1"
+                        value="1"
+                    >
+
+
+                    <div
+                        id="amplitudeValue"
+                        class="value-display"
+                    >
+                        1.00 m
+                    </div>
+
+                </div>
+
+
+                <!-- Frequency -->
+
+                <div class="control-group">
+
+                    <label for="frequency">
+                        <span>Frequency</span>
+                    </label>
+
+
+                    <input
+                        id="frequency"
+                        type="range"
+                        min="0.1"
+                        max="10"
+                        step="0.1"
+                        value="1"
+                    >
+
+
+                    <div
+                        id="frequencyValue"
+                        class="value-display"
+                    >
+                        1.00 Hz
+                    </div>
+
+                </div>
+
+
+                <!-- Wavelength -->
+
+                <div class="control-group">
+
+                    <label for="wavelength">
+                        <span>Wavelength</span>
+                    </label>
+
+
+                    <input
+                        id="wavelength"
+                        type="range"
+                        min="0.5"
+                        max="10"
+                        step="0.1"
+                        value="4"
+                    >
+
+
+                    <div
+                        id="wavelengthValue"
+                        class="value-display"
+                    >
+                        4.00 m
+                    </div>
+
+                </div>
+
+
+                <!-- Phase -->
+
+                <div class="control-group">
+
+                    <label for="phase">
+                        <span>Initial Phase</span>
+                    </label>
+
+
+                    <input
+                        id="phase"
+                        type="range"
+                        min="0"
+                        max="360"
+                        step="1"
+                        value="0"
+                    >
+
+
+                    <div
+                        id="phaseValue"
+                        class="value-display"
+                    >
+                        0°
+                    </div>
+
+                </div>
+
+
+                <!-- Buttons -->
+
+                <div class="button-group">
+
+                    <button
+                        id="startButton"
+                        type="button"
+                    >
+                        ▶ Start
+                    </button>
+
+
+                    <button
+                        id="pauseButton"
+                        type="button"
+                    >
+                        ⏸ Pause
+                    </button>
+
+
+                    <button
+                        id="resumeButton"
+                        type="button"
+                    >
+                        ▶ Resume
+                    </button>
+
+
+                    <button
+                        id="resetButton"
+                        type="button"
+                    >
+                        🔄 Reset
+                    </button>
+
+                </div>
+
+
+                <!-- Status -->
+
+                <div class="status">
+
+                    <span
+                        id="statusDot"
+                        class="ready"
+                    ></span>
+
+
+                    <span id="statusText">
+                        พร้อมเริ่มการจำลอง
+                    </span>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 SIMULATION
+            ========================== -->
+
+            <section
+                class="physics-card simulation-card"
+            >
+
+                <div class="simulation-heading">
+
+                    <h2>
+                        🌊 Wave
+                    </h2>
+
+
+                    <div class="live-badge">
+                        ● REAL-TIME SIMULATION
+                    </div>
+
+                </div>
+
+
+                <div class="canvas-wrapper">
+
+                    <canvas
+                        id="simulationCanvas"
+                        class="simulation-canvas"
+                    ></canvas>
+
+                </div>
+
+
+                <!-- REALTIME DATA -->
+
+                <div class="realtime-grid">
+
+
+                    <div class="realtime-item">
+
+                        <span>
+                            Time
+                        </span>
+
+
+                        <strong id="realtimeTime">
+                            0.00 s
+                        </strong>
+
+                    </div>
+
+
+                    <div class="realtime-item">
+
+                        <span>
+                            Displacement
+                        </span>
+
+
+                        <strong id="realtimeDisplacement">
+                            0.00 m
+                        </strong>
+
+                    </div>
+
+
+                    <div class="realtime-item">
+
+                        <span>
+                            Wave Speed
+                        </span>
+
+
+                        <strong id="realtimeSpeed">
+                            0.00 m/s
+                        </strong>
+
+                    </div>
+
+
+                    <div class="realtime-item">
+
+                        <span>
+                            Angular Frequency
+                        </span>
+
+
+                        <strong id="realtimeAngular">
+                            0.00 rad/s
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+
+        <!-- ==================================================
+             RESULTS
+        ================================================== -->
+
+        <section
+            class="physics-card results-section"
+        >
+
+            <h2>
+                📊 Results
+            </h2>
+
+
+            <div class="results-grid">
+
+
+                <div class="result-card">
+
+                    <span>
+                        Wave Speed
+                    </span>
+
+
+                    <strong id="speedResult">
+                        4.00 m/s
+                    </strong>
+
+                </div>
+
+
+                <div class="result-card">
+
+                    <span>
+                        Period
+                    </span>
+
+
+                    <strong id="periodResult">
+                        1.00 s
+                    </strong>
+
+                </div>
+
+
+                <div class="result-card">
+
+                    <span>
+                        Angular Frequency
+                    </span>
+
+
+                    <strong id="angularResult">
+                        6.28 rad/s
+                    </strong>
+
+                </div>
+
+
+                <div class="result-card">
+
+                    <span>
+                        Wave Number
+                    </span>
+
+
+                    <strong id="waveNumberResult">
+                        1.57 rad/m
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             GRAPH
+        ================================================== -->
+
+        <section
+            class="physics-card graph-card"
+        >
+
+            <h2>
+                📈 Wave Graph
+            </h2>
+
+
+            <div class="graph-buttons">
+
+
+                <button
+                    type="button"
+                    class="graph-button active"
+                    data-graph="wave"
+                >
+                    🌊 Wave
+                </button>
+
+
+                <button
+                    type="button"
+                    class="graph-button"
+                    data-graph="velocity"
+                >
+                    ⚡ Particle Velocity
+                </button>
+
+
+            </div>
+
+
+            <div class="graph-wrapper">
+
+                <canvas
+                    id="graphCanvas"
+                ></canvas>
+
+
+                <div id="graphEmpty">
+
+                    กด Start
+                    เพื่อเริ่มสร้างกราฟ
+
+                </div>
+
+            </div>
+
+
+            <div class="graph-current">
+
+                <strong
+                    id="graphCurrentTitle"
+                >
+                    Wave
+                </strong>
+
+
+                :
+
+
+                <span
+                    id="graphCurrentValue"
+                >
+                    -
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             FORMULAS
+        ================================================== -->
+
+        <section
+            class="physics-card formulas-card"
+        >
+
+            <h2>
+                📐 Formulas
+            </h2>
+
+
+            <div class="formula-list">
+
+
+                <div class="formula-item">
+
+                    <strong>
+                        v = fλ
+                    </strong>
+
+                    <span>
+                        Wave Speed
+                    </span>
+
+                </div>
+
+
+                <div class="formula-item">
+
+                    <strong>
+                        T = 1/f
+                    </strong>
+
+                    <span>
+                        Period
+                    </span>
+
+                </div>
+
+
+                <div class="formula-item">
+
+                    <strong>
+                        ω = 2πf
+                    </strong>
+
+                    <span>
+                        Angular Frequency
+                    </span>
+
+                </div>
+
+
+                <div class="formula-item">
+
+                    <strong>
+                        k = 2π/λ
+                    </strong>
+
+                    <span>
+                        Wave Number
+                    </span>
+
+                </div>
+
+
+                <div class="formula-item">
+
+                    <strong>
+                        y = A sin(kx − ωt + φ)
+                    </strong>
+
+                    <span>
+                        Wave Equation
+                    </span>
+
+                </div>
+
+
+                <div class="formula-item">
+
+                    <strong>
+                        u = −Aω cos(kx − ωt + φ)
+                    </strong>
+
+                    <span>
+                        Particle Velocity
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ==================================================
+         FOOTER
+    ================================================== -->
+
+    <footer class="page-footer">
+
+        <strong>
+            ⚙ ENGI HUB
+        </strong>
+
+        <br>
+
+        Engineering Physics Simulation Lab
+        © 2026
+
+    </footer>
+
+
+    <!-- ==================================================
+         SCRIPTS
+    ================================================== -->
+
+    <script src="js/physics/wave.js"></script>
+
+    <script src="js/darkmode.js"></script>
+
+
+</body>
+
+</html>
+```

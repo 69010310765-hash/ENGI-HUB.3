@@ -1,0 +1,4381 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>
+    Physics Simulation | ENGI HUB
+</title>
+
+<link
+    rel="stylesheet"
+    href="css/style.css"
+>
+
+<style>
+
+/* =========================================================
+   PHYSICS PAGE
+========================================================= */
+
+.physics-page {
+
+    min-height: 100vh;
+
+    background: #f4f7fb;
+
+    color: #0f172a;
+
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.physics-hero {
+
+    padding: 70px 20px 65px;
+
+    text-align: center;
+
+    color: white;
+
+    background:
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(59,130,246,.28),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 85% 20%,
+            rgba(14,165,233,.20),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #0f172a,
+            #1e3a8a
+        );
+
+}
+
+
+.physics-hero-badge {
+
+    display: inline-block;
+
+    padding: 8px 15px;
+
+    border-radius: 999px;
+
+    background:
+        rgba(255,255,255,.12);
+
+    border:
+        1px solid
+        rgba(255,255,255,.20);
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 16px;
+
+}
+
+
+.physics-hero h1 {
+
+    margin: 0;
+
+    font-size:
+        clamp(35px,6vw,60px);
+
+}
+
+
+.physics-hero p {
+
+    max-width: 720px;
+
+    margin: 16px auto 0;
+
+    color: #dbeafe;
+
+    line-height: 1.8;
+
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.physics-main {
+
+    max-width: 1200px;
+
+    margin: 0 auto;
+
+    padding:
+        55px 20px 80px;
+
+}
+
+
+/* =========================================================
+   SECTION HEADER
+========================================================= */
+
+.section-heading {
+
+    margin-bottom: 25px;
+
+}
+
+
+.section-heading h2 {
+
+    margin: 0;
+
+    font-size: 28px;
+
+}
+
+
+.section-heading p {
+
+    margin:
+        8px 0 0;
+
+    color: #64748b;
+
+    line-height: 1.7;
+
+}
+
+
+/* =========================================================
+   PERSONAL DASHBOARD
+========================================================= */
+
+.personal-dashboard {
+
+    margin-bottom: 55px;
+
+}
+
+
+.dashboard-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap: 18px;
+
+}
+
+
+.dashboard-card {
+
+    padding: 22px;
+
+    background: white;
+
+    border:
+        1px solid #e2e8f0;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 8px 25px
+        rgba(15,23,42,.05);
+
+}
+
+
+.dashboard-card h3 {
+
+    margin:
+        0 0 8px;
+
+    font-size: 17px;
+
+}
+
+
+.dashboard-card p {
+
+    margin: 0;
+
+    color: #64748b;
+
+    font-size: 13px;
+
+    line-height: 1.7;
+
+}
+
+
+.dashboard-content {
+
+    margin-top: 15px;
+
+}
+
+
+.continue-card {
+
+    display: none;
+
+}
+
+
+.continue-card.visible {
+
+    display: block;
+
+}
+
+
+.continue-tool {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 14px;
+
+    border-radius: 12px;
+
+    background: #f8fafc;
+
+}
+
+
+.continue-tool strong {
+
+    display: block;
+
+}
+
+
+.continue-tool span {
+
+    display: block;
+
+    margin-top: 3px;
+
+    color: #64748b;
+
+    font-size: 12px;
+
+}
+
+
+.dashboard-link {
+
+    display: inline-block;
+
+    margin-top: 12px;
+
+    color: #2563eb;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    text-decoration: none;
+
+}
+
+
+.dashboard-empty {
+
+    color: #94a3b8;
+
+    font-size: 13px;
+
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+.physics-tools {
+
+    margin-bottom: 55px;
+
+}
+
+
+.physics-search-box {
+
+    max-width: 760px;
+
+    margin:
+        0 auto 25px;
+
+}
+
+
+.physics-search-box input {
+
+    width: 100%;
+
+    padding:
+        16px 20px;
+
+    border:
+        1px solid #cbd5e1;
+
+    border-radius: 14px;
+
+    outline: none;
+
+    background: white;
+
+    color: #0f172a;
+
+    font-size: 16px;
+
+    transition: .2s;
+
+}
+
+
+.physics-search-box input:focus {
+
+    border-color: #2563eb;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(37,99,235,.10);
+
+}
+
+
+/* =========================================================
+   FILTER
+========================================================= */
+
+.physics-filters {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    justify-content: center;
+
+    gap: 9px;
+
+    margin-bottom: 28px;
+
+}
+
+
+.physics-filter {
+
+    padding:
+        9px 16px;
+
+    border:
+        1px solid #cbd5e1;
+
+    border-radius: 999px;
+
+    background: white;
+
+    color: #475569;
+
+    cursor: pointer;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    transition: .2s;
+
+}
+
+
+.physics-filter:hover {
+
+    border-color: #60a5fa;
+
+    color: #2563eb;
+
+}
+
+
+.physics-filter.active {
+
+    background: #2563eb;
+
+    border-color: #2563eb;
+
+    color: white;
+
+}
+
+
+/* =========================================================
+   SIMULATION GRID
+========================================================= */
+
+.physics-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap: 20px;
+
+}
+
+
+.physics-card {
+
+    position: relative;
+
+    display: flex;
+
+    flex-direction: column;
+
+    padding: 23px;
+
+    background: white;
+
+    border:
+        1px solid #e2e8f0;
+
+    border-radius: 19px;
+
+    box-shadow:
+        0 8px 25px
+        rgba(15,23,42,.05);
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        border-color .2s ease;
+
+}
+
+
+.physics-card:hover {
+
+    transform:
+        translateY(-4px);
+
+    border-color:
+        #bfdbfe;
+
+    box-shadow:
+        0 15px 35px
+        rgba(15,23,42,.09);
+
+}
+
+
+.physics-card.hidden {
+
+    display: none;
+
+}
+
+
+.physics-card-top {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+
+}
+
+
+.physics-icon {
+
+    width: 52px;
+
+    height: 52px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 15px;
+
+    background: #eff6ff;
+
+    font-size: 28px;
+
+}
+
+
+.favorite-btn {
+
+    width: 38px;
+
+    height: 38px;
+
+    border:
+        1px solid #e2e8f0;
+
+    border-radius: 10px;
+
+    background: white;
+
+    color: #94a3b8;
+
+    cursor: pointer;
+
+    font-size: 18px;
+
+    transition: .2s;
+
+}
+
+
+.favorite-btn:hover {
+
+    border-color: #fbbf24;
+
+    color: #f59e0b;
+
+}
+
+
+.favorite-btn.active {
+
+    color: #f59e0b;
+
+    border-color: #fcd34d;
+
+    background: #fffbeb;
+
+}
+
+
+.physics-card-category {
+
+    margin-top: 17px;
+
+    color: #2563eb;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: .7px;
+
+    text-transform: uppercase;
+
+}
+
+
+.physics-card h3 {
+
+    margin:
+        7px 0 0;
+
+    font-size: 20px;
+
+}
+
+
+.physics-formula {
+
+    margin-top: 12px;
+
+    padding: 10px 12px;
+
+    border-radius: 9px;
+
+    background: #f8fafc;
+
+    color: #334155;
+
+    font-family:
+        "Courier New",
+        monospace;
+
+    font-size: 13px;
+
+}
+
+
+.physics-card p {
+
+    margin:
+        13px 0 20px;
+
+    color: #64748b;
+
+    font-size: 13px;
+
+    line-height: 1.75;
+
+    flex: 1;
+
+}
+
+
+.physics-card-button {
+
+    display: block;
+
+    padding:
+        11px 15px;
+
+    border-radius: 10px;
+
+    background: #2563eb;
+
+    color: white;
+
+    text-align: center;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    transition: .2s;
+
+}
+
+
+.physics-card-button:hover {
+
+    background: #1d4ed8;
+
+}
+
+
+/* =========================================================
+   ENGINEERING MISSIONS
+========================================================= */
+
+.missions-section {
+
+    margin-top: 65px;
+
+}
+
+
+.missions-heading {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: end;
+
+    gap: 20px;
+
+    margin-bottom: 25px;
+
+}
+
+
+.missions-heading h2 {
+
+    margin: 0;
+
+    font-size: 28px;
+
+}
+
+
+.missions-heading p {
+
+    margin: 8px 0 0;
+
+    color: #64748b;
+
+    line-height: 1.7;
+
+}
+
+
+.mission-xp-total {
+
+    padding:
+        10px 15px;
+
+    border-radius: 12px;
+
+    background: #eff6ff;
+
+    color: #1d4ed8;
+
+    font-size: 13px;
+
+    font-weight: 800;
+
+    white-space: nowrap;
+
+}
+
+
+.missions-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap: 20px;
+
+}
+
+
+.mission-card {
+
+    position: relative;
+
+    padding: 25px;
+
+    background: white;
+
+    border:
+        1px solid #e2e8f0;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 8px 25px
+        rgba(15,23,42,.05);
+
+    transition: .2s;
+
+}
+
+
+.mission-card:hover {
+
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+        0 14px 35px
+        rgba(15,23,42,.08);
+
+}
+
+
+.mission-card-top {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+}
+
+
+.mission-icon {
+
+    width: 55px;
+
+    height: 55px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 15px;
+
+    background: #eff6ff;
+
+    font-size: 28px;
+
+}
+
+
+.mission-status-badge {
+
+    display: inline-block;
+
+    padding:
+        6px 10px;
+
+    border-radius: 999px;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: .5px;
+
+}
+
+
+.mission-status-badge.progress {
+
+    background: #fef3c7;
+
+    color: #92400e;
+
+}
+
+
+.mission-status-badge.completed {
+
+    background: #dcfce7;
+
+    color: #166534;
+
+}
+
+
+.mission-number {
+
+    margin-top: 17px;
+
+    color: #2563eb;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+
+}
+
+
+.mission-card h3 {
+
+    margin:
+        6px 0 0;
+
+    font-size: 23px;
+
+}
+
+
+.mission-card p {
+
+    margin:
+        12px 0 20px;
+
+    color: #64748b;
+
+    font-size: 13px;
+
+    line-height: 1.75;
+
+}
+
+
+.mission-objectives {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap: 8px;
+
+}
+
+
+.mission-objectives > div {
+
+    padding:
+        12px 9px;
+
+    border-radius: 10px;
+
+    background: #f8fafc;
+
+    text-align: center;
+
+}
+
+
+.mission-objectives span {
+
+    display: block;
+
+    color: #64748b;
+
+    font-size: 10px;
+
+}
+
+
+.mission-objectives strong {
+
+    display: block;
+
+    margin-top: 4px;
+
+    font-size: 13px;
+
+}
+
+
+.mission-progress {
+
+    margin-top: 20px;
+
+}
+
+
+.mission-progress-label {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 8px;
+
+}
+
+
+.mission-progress-label span {
+
+    color: #64748b;
+
+    font-size: 11px;
+
+}
+
+
+.mission-progress-label strong {
+
+    color: #f59e0b;
+
+    font-size: 14px;
+
+    letter-spacing: 1px;
+
+}
+
+
+.mission-progress-bar {
+
+    height: 7px;
+
+    overflow: hidden;
+
+    border-radius: 999px;
+
+    background: #e2e8f0;
+
+}
+
+
+.mission-progress-fill {
+
+    width: 0%;
+
+    height: 100%;
+
+    border-radius: inherit;
+
+    background:
+        linear-gradient(
+            90deg,
+            #f59e0b,
+            #fbbf24
+        );
+
+    transition: width .3s ease;
+
+}
+
+
+.mission-meta {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 10px;
+
+    margin-top: 16px;
+
+}
+
+
+.mission-meta > div {
+
+    padding:
+        11px 12px;
+
+    border-radius: 10px;
+
+    background: #f8fafc;
+
+}
+
+
+.mission-meta span {
+
+    display: block;
+
+    color: #64748b;
+
+    font-size: 10px;
+
+}
+
+
+.mission-meta strong {
+
+    display: block;
+
+    margin-top: 3px;
+
+    font-size: 14px;
+
+}
+
+
+.mission-button {
+
+    display: block;
+
+    margin-top: 16px;
+
+    padding:
+        12px;
+
+    border-radius: 10px;
+
+    background: #2563eb;
+
+    color: white;
+
+    text-align: center;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    font-weight: 800;
+
+    transition: .2s;
+
+}
+
+
+.mission-button:hover {
+
+    background: #1d4ed8;
+
+}
+
+
+.mission-card.coming-soon {
+
+    opacity: .72;
+
+}
+
+
+.mission-card.coming-soon .mission-button {
+
+    background: #e2e8f0;
+
+    color: #64748b;
+
+    pointer-events: none;
+
+}
+
+
+/* =========================================================
+   NO RESULTS
+========================================================= */
+
+.no-results {
+
+    display: none;
+
+    padding: 40px 20px;
+
+    text-align: center;
+
+    color: #94a3b8;
+
+}
+
+
+.no-results.visible {
+
+    display: block;
+
+}
+
+
+/* =========================================================
+   DARK MODE
+========================================================= */
+
+body.dark-mode .physics-page {
+
+    background: #020617;
+
+    color: #f8fafc;
+
+}
+
+
+body.dark-mode .dashboard-card,
+body.dark-mode .physics-card,
+body.dark-mode .mission-card {
+
+    background: #0f172a;
+
+    border-color: #1e293b;
+
+}
+
+
+body.dark-mode .section-heading p,
+body.dark-mode .dashboard-card p,
+body.dark-mode .physics-card p,
+body.dark-mode .missions-heading p,
+body.dark-mode .mission-card p {
+
+    color: #94a3b8;
+
+}
+
+
+body.dark-mode .continue-tool,
+body.dark-mode .physics-formula,
+body.dark-mode .mission-objectives > div,
+body.dark-mode .mission-meta > div {
+
+    background: #020617;
+
+}
+
+
+body.dark-mode .continue-tool span,
+body.dark-mode .mission-objectives span,
+body.dark-mode .mission-meta span {
+
+    color: #94a3b8;
+
+}
+
+
+body.dark-mode .physics-search-box input {
+
+    background: #0f172a;
+
+    border-color: #334155;
+
+    color: #f8fafc;
+
+}
+
+
+body.dark-mode .physics-filter {
+
+    background: #0f172a;
+
+    border-color: #334155;
+
+    color: #cbd5e1;
+
+}
+
+
+body.dark-mode .physics-filter.active {
+
+    background: #2563eb;
+
+    border-color: #2563eb;
+
+    color: white;
+
+}
+
+
+body.dark-mode .favorite-btn {
+
+    background: #0f172a;
+
+    border-color: #334155;
+
+}
+
+
+body.dark-mode .favorite-btn.active {
+
+    background: #422006;
+
+    border-color: #92400e;
+
+}
+
+
+body.dark-mode .physics-icon,
+body.dark-mode .mission-icon {
+
+    background: #172554;
+
+}
+
+
+body.dark-mode .physics-formula {
+
+    color: #cbd5e1;
+
+}
+
+
+body.dark-mode .mission-xp-total {
+
+    background: #172554;
+
+    color: #bfdbfe;
+
+}
+
+
+body.dark-mode .mission-progress-bar {
+
+    background: #334155;
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1000px) {
+
+    .physics-grid {
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+    }
+
+}
+
+
+@media (max-width: 850px) {
+
+    .dashboard-grid {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .missions-grid {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .missions-heading {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+
+    }
+
+}
+
+
+@media (max-width: 650px) {
+
+    .physics-main {
+
+        padding:
+            40px 15px 60px;
+
+    }
+
+
+    .physics-grid {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .mission-objectives {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .physics-filters {
+
+        justify-content:
+            flex-start;
+
+        overflow-x: auto;
+
+        flex-wrap: nowrap;
+
+        padding-bottom: 5px;
+
+    }
+
+
+    .physics-filter {
+
+        white-space: nowrap;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
+
+<nav>
+
+    <div class="logo">
+        ⚙ ENGI HUB
+    </div>
+
+
+    <div class="menu">
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="index.html#tools">
+            Tools
+        </a>
+
+        <a href="formulas.html">
+            Formulas
+        </a>
+
+        <a href="equipment.html">
+            Equipment
+        </a>
+
+        <a href="history.html">
+            History
+        </a>
+
+        <a href="index.html#about">
+            About
+        </a>
+
+        <button
+            id="darkModeBtn"
+            class="dark-mode-btn"
+        >
+            🌙
+        </button>
+
+    </div>
+
+</nav>
+
+
+<!-- =========================================================
+     PAGE
+========================================================= -->
+
+<div class="physics-page">
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<header class="physics-hero">
+
+    <div class="physics-hero-badge">
+        ENGI HUB • PHYSICS LABORATORY
+    </div>
+
+
+    <h1>
+        ⚛ Physics Simulation
+    </h1>
+
+
+    <p>
+
+        ห้องทดลองฟิสิกส์แบบ Interactive
+        สำหรับทดลองการเคลื่อนที่ แรง เวกเตอร์
+        คลื่น และพลังงาน พร้อมดูผลลัพธ์แบบ Real-time
+
+    </p>
+
+</header>
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main class="physics-main">
+
+
+<!-- =========================================================
+     PERSONAL DASHBOARD
+========================================================= -->
+
+<section class="personal-dashboard">
+
+
+    <div class="section-heading">
+
+        <h2>
+            📊 My Physics Lab
+        </h2>
+
+        <p>
+            ดูการทดลองล่าสุดและกลับไปเรียนต่อ
+        </p>
+
+    </div>
+
+
+    <div class="dashboard-grid">
+
+
+        <!-- CONTINUE -->
+
+        <div
+            class="dashboard-card continue-card"
+            id="continueCard"
+        >
+
+            <h3>
+                ▶ Continue Learning
+            </h3>
+
+
+            <div
+                class="dashboard-content"
+                id="continueContent"
+            ></div>
+
+        </div>
+
+
+        <!-- RECENT -->
+
+        <div class="dashboard-card">
+
+            <h3>
+                🕘 Recent Experiments
+            </h3>
+
+
+            <div
+                class="dashboard-content"
+                id="recentExperiments"
+            >
+
+                <div class="dashboard-empty">
+                    ยังไม่มีการทดลองล่าสุด
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- FAVORITES -->
+
+        <div class="dashboard-card">
+
+            <h3>
+                ⭐ Favorite Labs
+            </h3>
+
+
+            <div
+                class="dashboard-content"
+                id="favoriteLabs"
+            >
+
+                <div class="dashboard-empty">
+                    ยังไม่มี Lab ที่บันทึกไว้
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     PHYSICS TOOLS
+========================================================= -->
+
+<section class="physics-tools">
+
+
+    <div class="section-heading">
+
+        <h2>
+            🧪 Physics Laboratories
+        </h2>
+
+        <p>
+            เลือก Simulation ที่ต้องการทดลอง
+            หรือค้นหาจากชื่อและหัวข้อ
+        </p>
+
+    </div>
+
+
+    <!-- SEARCH -->
+
+    <div class="physics-search-box">
+
+        <input
+            type="search"
+            id="physicsSearch"
+            placeholder="🔎 ค้นหา เช่น Projectile, Force, Vector, Wave..."
+            autocomplete="off"
+        >
+
+    </div>
+
+
+    <!-- FILTER -->
+
+    <div class="physics-filters">
+
+
+        <button
+            type="button"
+            class="physics-filter active"
+            data-filter="all"
+        >
+            ทั้งหมด
+        </button>
+
+
+        <button
+            type="button"
+            class="physics-filter"
+            data-filter="motion"
+        >
+            🏃 Motion
+        </button>
+
+
+        <button
+            type="button"
+            class="physics-filter"
+            data-filter="force"
+        >
+            💪 Force
+        </button>
+
+
+        <button
+            type="button"
+            class="physics-filter"
+            data-filter="vector"
+        >
+            🧭 Vector
+        </button>
+
+
+        <button
+            type="button"
+            class="physics-filter"
+            data-filter="wave"
+        >
+            🌊 Wave
+        </button>
+
+
+        <button
+            type="button"
+            class="physics-filter"
+            data-filter="energy"
+        >
+            ⚡ Energy
+        </button>
+
+
+    </div>
+
+
+    <!-- =====================================================
+         PHYSICS GRID
+    ====================================================== -->
+
+    <div
+        class="physics-grid"
+        id="physicsGrid"
+    >
+
+
+        <!-- 01 -->
+
+        <article
+            class="physics-card"
+            data-category="motion"
+            data-keywords="
+                projectile
+                projectile motion
+                การยิงวัตถุ
+                การเคลื่อนที่แบบโพรเจกไทล์
+                motion
+            "
+        >
+
+            <div class="physics-card-top">
+
+                <div class="physics-icon">
+                    🏹
+                </div>
+
+
+                <button
+                    type="button"
+                    class="favorite-btn"
+                    data-title="Projectile Motion"
+                    aria-label="Favorite Projectile Motion"
+                >
+                    ☆
+                </button>
+
+            </div>
+
+
+            <div class="physics-card-category">
+                MOTION
+            </div>
+
+
+            <h3>
+                Projectile Motion
+            </h3>
+
+
+            <div class="physics-formula">
+                x = v₀cosθt
+            </div>
+
+
+            <p>
+                ทดลองการยิงวัตถุด้วยความเร็วต้น
+                และมุมต่าง ๆ พร้อมดูวิถีการเคลื่อนที่
+                แบบ Real-time
+            </p>
+
+
+            <a
+                href="projectile.html"
+                class="physics-card-button"
+            >
+                Open Laboratory →
+            </a>
+
+        </article>
+
+
+        <!-- 02 -->
+
+        <article
+            class="physics-card"
+            data-category="motion"
+            data-keywords="
+                free fall
+                freefall
+                ตกอิสระ
+                การตกของวัตถุ
+                gravity
+            "
+        >
+
+            <div class="physics-card-top">
+
+                <div class="physics-icon">
+                    🪂
+                </div>
+
+
+                <button
+                    type="button"
+                    class="favorite-btn"
+                    data-title="Free Fall Simulation"
+                    aria-label="Favorite Free Fall"
+                >
+                    ☆
+                </button>
+
+            </div>
+
+
+            <div class="physics-card-category">
+                MOTION
+            </div>
+
+
+            <h3>
+                Free Fall
+            </h3>
+
+
+            <div class="physics-formula">
+                v = gt
+            </div>
+
+
+            <p>
+                ทดลองการตกของวัตถุภายใต้แรงโน้มถ่วง
+                พร้อมดูเวลาและความเร็วขณะตก
+            </p>
+
+
+            <a
+                href="freefall.html"
+                class="physics-card-button"
+            >
+                Open Laboratory →
+            </a>
+
+        </article>
+
+
+        <!-- 03 -->
+
+        <article
+            class="physics-card"
+            data-category="motion"
+            data-keywords="
+                motion
+                motion laboratory
+                การเคลื่อนที่
+                ความเร็ว
+                ความเร่ง
+                1d
+            "
+        >
+
+            <div class="physics-card-top">
+
+                <div class="physics-icon">
+                    🏃
+                </div>
+
+
+                <button
+                    type="button"
+                    class="favorite-btn"
+                    data-title="Motion Laboratory"
+                    aria-label="Favorite Motion Laboratory"
+                >
+                    ☆
+                </button>
+
+            </div>
+
+
+            <div class="physics-card-category">
+                MOTION
+            </div>
+
+
+            <h3>
+                Motion Laboratory
+            </h3>
+
+
+            <div class="physics-formula">
+                x = x₀ + v₀t + ½at²
+            </div>
+
+
+            <p>
+                ทดลองการเคลื่อนที่แบบ 1 มิติ
+                ศึกษาตำแหน่ง ความเร็ว และความเร่ง
+                พร้อมกราฟ Real-time
+            </p>
+
+
+            <a
+                href="motion.html"
+                class="physics-card-button"
+            >
+                Open Laboratory →
+            </a>
+
+        </article>
+
+
+        <!-- 04 -->
+
+        <article
+            class="physics-card"
+            data-category="motion"
+            data-keywords="
+                circular
+                circular motion
+                การเคลื่อนที่แบบวงกลม
+                centripetal
+                angular
+            "
+        >
+
+            <div class="physics-card-top">
+
+                <div class="physics-icon">
+                    🔄
+                </div>
+
+
+                <button
+                    type="button"
+                    class="favorite-btn"
+                    data-title="Circular Motion Laboratory"
+                    aria-label="Favorite Circular Motion Laboratory"
+                >
+                    ☆
+                </button>
+
+            </div>
+
+
+            <div class="physics-card-category">
+                MOTION
+            </div>
+
+
+            <h3>
+                Circular Motion Laboratory
+            </h3>
+
+
+            <div class="physics-formula">
+                aᶜ = v²/r
+            </div>
+
+
+            <p>
+                ทดลองการเคลื่อนที่แบบวงกลม
+                ศึกษาความเร็วเชิงเส้น
+                ความเร็วเชิงมุม
+                และแรงสู่ศูนย์กลาง
+            </p>
+
+
+            <a
+                href="circular-motion.html"
+                class="physics-card-button"
+            >
+                Open Laboratory →
+            </a>
+
+        </article>
+
+
+        <!-- 05 -->
+
+        <article
+            class="physics-card"
+            data-category="motion"
+            data-keywords="
+                2d motion
+                motion 2d
+                การเคลื่อนที่สองมิติ
+                x y
+                vector
+            "
+        >
+
+            <div class="physics-card-top">
+
+                <div class="physics-icon">
+                    🎯
+                </div>
+
+
+                <button
+                    type="button"
+                    class="favorite-btn"
+                    data-title="2D Motion Laboratory"
+                    aria-label="Favorite 2D Motion Laboratory"
+                >
+                    ☆
+                </button>
+
+            </div>
+
+
+            <div class="physics-card-category">
+                MOTION
+            </div>
+
+
+            <h3>
+                2D Motion Laboratory
+            </h3>
+
+
+            <div class="physics-formula">
+                x = x₀ + v₀t + ½at²
+            </div>
+
+
+            <p>
+                ทดลองการเคลื่อนที่ในระบบพิกัด X และ Y
+                พร้อมดูเวกเตอร์ความเร็ว
+                ความเร่ง และกราฟ Real-time
+            </p>
+
+
+            <a
+                href="motion-2d.html"
+                class="physics-card-button"
+            >
+                Open Laboratory →
+            </a>
+
+        </article>
+
+
+        <!-- 06 -->
+
+        <article
+            class="physics-card"
+            data-category="force"
+            data-keywords="
+                inclined plane
+                plane
+                friction
+                แรงเสียดทาน
+                พื้นเอียง
+                force
+            "
+        >
+
+            <div class="physics-card-top">
+
+                <div class="physics-icon">
+                    📐
+                </div>
+
+
+                <button
+                    type="button"
+                    class="favorite-btn"
+                    data-title="Inclined Plane"
+                    aria-label="Favorite Inclined Plane"
+                >
+                    ☆
+                </button>
+
+            </div>
+
+
+            <div class="physics-card-category">
+                FORCE
+            </div>
+
+
+            <h3>
+                Inclined Plane
+            </h3>
+
+
+            <div class="physics-formula">
+                a = g(sinθ − μcosθ)
+            </div>
+
+
+            <p>
+                ทดลองแรงบนพื้นเอียง
+                แรงเสียดทาน แรงปกติ
+                และความเร่งของวัตถุ
+            </p>
+
+
+            <a
+                href="inclined-plane.html"
+                class="physics-card-button"
+            >
+                Open Laboratory →
+            </a>
+
+        </article>
+
+
+        <!-- 07 -->
+
+        <article
+            class="physics-card"
+            data-category="force"
+            data-keywords="
+                force vector
+                force laboratory
+                แรง
+                แรงลัพธ์
+                force 3d
+            "
+        >
+
+            <div class="physics-card-top">
+
+                <div class="physics-icon">
+                    🧲
+                </div>
+
+
+                <button
+                    type="button"
+                    class="favorite-btn"
+                    data-title="Force Vector Laboratory"
+                    aria-label="Favorite Force Vector Laboratory"
+                >
+                    ☆
+                </button>
+
+            </div>
+
+
+            <div class="physics-card-category">
+                FORCE
+            </div>
+
+
+            <h3>
+                Force Vector Laboratory
+            </h3>
+
+
+            <div class="physics-formula">
+                ΣF = F₁ + F₂ + F₃
+            </div>
+
+
+            <p>
+                ทดลองแรงหลายแรงในระบบ 3 มิติ
+                และคำนวณแรงลัพธ์ ΣF
+                พร้อมดูองค์ประกอบ Fx, Fy และ Fz
+            </p>
+
+
+            <a
+                href="force-vector.html"
+                class="physics-card-button"
+            >
+                Open Laboratory →
+            </a>
+
+        </article>
+
+
+        <!-- 08 -->
+
+        <article
+            class="physics-card"
+            data-category="vector"
+            data-keywords="
+                vector
+                3d vector
+                เวกเตอร์
+                dot product
+                cross product
+                vector 3d
+            "
+        >
+
+            <div class="physics-card-top">
+
+                <div class="physics-icon">
+                    🧭
+                </div>
+
+
+                <button
+                    type="button"
+                    class="favorite-btn"
+                    data-title="3D Vector"
+                    aria-label="Favorite 3D Vector"
+                >
+                    ☆
+                </button>
+
+            </div>
+
+
+            <div class="physics-card-category">
+                VECTOR
+            </div>
+
+
+            <h3>
+                3D Vector Laboratory
+            </h3>
+
+
+            <div class="physics-formula">
+                A + B, A · B, A × B
+            </div>
+
+
+            <p>
+                ทดลองเวกเตอร์ A และ B
+                ในระบบพิกัด 3 มิติ
+                พร้อมคำนวณการบวก ลบ
+                Dot Product และ Cross Product
+            </p>
+
+
+            <a
+                href="vector.html"
+                class="physics-card-button"
+            >
+                Open Laboratory →
+            </a>
+
+        </article>
+
+
+        <!-- 09 -->
+
+        <article
+            class="physics-card"
+            data-category="energy"
+            data-keywords="
+                energy
+                work
+                งาน
+                พลังงาน
+                kinetic
+                friction
+            "
+        >
+
+            <div class="physics-card-top">
+
+                <div class="physics-icon">
+                    ⚡
+                </div>
+
+
+                <button
+                    type="button"
+                    class="favorite-btn"
+                    data-title="Energy & Work Laboratory"
+                    aria-label="Favorite Energy and Work Laboratory"
+                >
+                    ☆
+                </button>
+
+            </div>
+
+
+            <div class="physics-card-category">
+                ENERGY
+            </div>
+
+
+            <h3>
+                Energy & Work Laboratory
+            </h3>
+
+
+            <div class="physics-formula">
+                W = Fs cosθ
+            </div>
+
+
+            <p>
+                ทดลองแรง การกระจัด งาน
+                พลังงานจลน์ และแรงเสียดทาน
+                พร้อมศึกษาทฤษฎีงาน–พลังงานแบบ Real-time
+            </p>
+
+
+            <a
+                href="energy.html"
+                class="physics-card-button"
+            >
+                Open Laboratory →
+            </a>
+
+        </article>
+
+
+        <!-- 10 -->
+
+        <article
+            class="physics-card"
+            data-category="motion"
+            data-keywords="
+                pendulum
+                simple pendulum
+                ลูกตุ้ม
+                ลูกตุ้มอย่างง่าย
+                period
+                frequency
+            "
+        >
+
+            <div class="physics-card-top">
+
+                <div class="physics-icon">
+                    🪀
+                </div>
+
+
+                <button
+                    type="button"
+                    class="favorite-btn"
+                    data-title="Simple Pendulum"
+                    aria-label="Favorite Simple Pendulum"
+                >
+                    ☆
+                </button>
+
+            </div>
+
+
+            <div class="physics-card-category">
+                MOTION
+            </div>
+
+
+            <h3>
+                Simple Pendulum
+            </h3>
+
+
+            <div class="physics-formula">
+                T = 2π√(L/g)
+            </div>
+
+
+            <p>
+                ทดลองการแกว่งของลูกตุ้ม
+                ศึกษาคาบ ความถี่
+                ความเร็ว และความเร่ง
+            </p>
+
+
+            <a
+                href="pendulum.html"
+                class="physics-card-button"
+            >
+                Open Laboratory →
+            </a>
+
+        </article>
+
+
+        <!-- 11 -->
+
+        <article
+            class="physics-card"
+            data-category="motion"
+            data-keywords="
+                spring
+                spring mass
+                spring-mass
+                สปริง
+                มวลติดสปริง
+                oscillation
+            "
+        >
+
+            <div class="physics-card-top">
+
+                <div class="physics-icon">
+                    🌀
+                </div>
+
+
+                <button
+                    type="button"
+                    class="favorite-btn"
+                    data-title="Spring-Mass"
+                    aria-label="Favorite Spring-Mass"
+                >
+                    ☆
+                </button>
+
+            </div>
+
+
+            <div class="physics-card-category">
+                MOTION
+            </div>
+
+
+            <h3>
+                Spring-Mass
+            </h3>
+
+
+            <div class="physics-formula">
+                F = −kx
+            </div>
+
+
+            <p>
+                ทดลองการสั่นของมวลติดสปริง
+                ศึกษาคาบ ความถี่ พลังงาน
+                และความเร่ง
+            </p>
+
+
+            <a
+                href="spring.html"
+                class="physics-card-button"
+            >
+                Open Laboratory →
+            </a>
+
+        </article>
+
+
+        <!-- 12 -->
+
+        <article
+            class="physics-card"
+            data-category="wave"
+            data-keywords="
+                wave
+                wave simulation
+                คลื่น
+                ความถี่
+                ความยาวคลื่น
+                amplitude
+            "
+        >
+
+            <div class="physics-card-top">
+
+                <div class="physics-icon">
+                    🌊
+                </div>
+
+
+                <button
+                    type="button"
+                    class="favorite-btn"
+                    data-title="Wave Simulation"
+                    aria-label="Favorite Wave Simulation"
+                >
+                    ☆
+                </button>
+
+            </div>
+
+
+            <div class="physics-card-category">
+                WAVE
+            </div>
+
+
+            <h3>
+                Wave Simulation
+            </h3>
+
+
+            <div class="physics-formula">
+                v = fλ
+            </div>
+
+
+            <p>
+                ทดลองแอมพลิจูด ความถี่
+                ความยาวคลื่น และเฟส
+                พร้อมดูการเคลื่อนที่ของคลื่น
+            </p>
+
+
+            <a
+                href="wave.html"
+                class="physics-card-button"
+            >
+                Open Laboratory →
+            </a>
+
+        </article>
+
+
+    </div>
+
+
+    <div
+        class="no-results"
+        id="noResults"
+    >
+
+        🔎 ไม่พบ Simulation
+        ที่ตรงกับคำค้นหา
+
+    </div>
+
+
+</section>
+
+
+<!-- =========================================================
+     ENGINEERING MISSIONS
+========================================================= -->
+
+<section class="missions-section">
+
+
+    <div class="missions-heading">
+
+
+        <div>
+
+            <h2>
+                🎮 Engineering Missions
+            </h2>
+
+
+            <p>
+
+                เปลี่ยนจากการทดลองธรรมดา
+                เป็นภารกิจแก้ปัญหาทางวิศวกรรม
+                พร้อมสะสม Stars และ XP
+
+            </p>
+
+        </div>
+
+
+        <div
+            class="mission-xp-total"
+            id="missionTotalXP"
+        >
+            XP รวม: 0
+        </div>
+
+
+    </div>
+
+
+    <div class="missions-grid">
+
+
+        <!-- =================================================
+             MISSION 01
+        ================================================== -->
+
+        <article
+            class="mission-card"
+            id="mission01Card"
+        >
+
+
+            <div class="mission-card-top">
+
+
+                <div class="mission-icon">
+                    🏗️
+                </div>
+
+
+                <span
+                    id="mission01Status"
+                    class="mission-status-badge progress"
+                >
+                    NEW
+                </span>
+
+
+            </div>
+
+
+            <div class="mission-number">
+                MISSION 01
+            </div>
+
+
+            <h3>
+                Cargo Ramp
+            </h3>
+
+
+            <p>
+
+                ควบคุมการเคลื่อนที่ของกล่องสินค้า
+                น้ำหนัก 20 kg บนทางลาด
+                ให้เวลาและความเร็วปลายทาง
+                อยู่ในช่วงที่กำหนด
+
+            </p>
+
+
+            <div class="mission-objectives">
+
+
+                <div>
+
+                    <span>
+                        📏 ระยะทาง
+                    </span>
+
+                    <strong>
+                        10 m
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        ⏱ เวลา
+                    </span>
+
+                    <strong>
+                        3.5–5.0 s
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        🚀 ความเร็ว
+                    </span>
+
+                    <strong>
+                        4–7 m/s
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="mission-progress">
+
+
+                <div class="mission-progress-label">
+
+                    <span>
+                        Best Score
+                    </span>
+
+
+                    <strong
+                        id="mission01Stars"
+                    >
+                        ☆☆☆☆☆
+                    </strong>
+
+                </div>
+
+
+                <div class="mission-progress-bar">
+
+                    <div
+                        id="mission01ProgressBar"
+                        class="mission-progress-fill"
+                    ></div>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="mission-meta">
+
+
+                <div>
+
+                    <span>
+                        Attempts
+                    </span>
+
+
+                    <strong
+                        id="mission01Attempts"
+                    >
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        XP
+                    </span>
+
+
+                    <strong
+                        id="mission01XP"
+                    >
+                        0
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+
+            <a
+                href="mission01.html"
+                class="mission-button"
+            >
+
+                <span
+                    id="mission01ButtonText"
+                >
+                    Start Mission →
+                </span>
+
+            </a>
+
+
+        </article>
+
+
+        <!-- =================================================
+             MISSION 02
+        ================================================== -->
+
+        <article
+            class="mission-card"
+            id="mission02Card"
+        >
+
+
+            <div class="mission-card-top">
+
+
+                <div class="mission-icon">
+                    ⚡
+                </div>
+
+
+                <span
+                    id="mission02Status"
+                    class="mission-status-badge progress"
+                >
+                    NEW
+                </span>
+
+
+            </div>
+
+
+            <div class="mission-number">
+                MISSION 02
+            </div>
+
+
+            <h3>
+                Electrical Circuit
+            </h3>
+
+
+            <p>
+
+                ออกแบบวงจรไฟฟ้าแบบอนุกรม
+                เลือกค่าตัวต้านทาน R1 และ R2
+                ให้กระแสและกำลังไฟฟ้า
+                อยู่ในช่วงที่กำหนด
+
+            </p>
+
+
+            <div class="mission-objectives">
+
+
+                <div>
+
+                    <span>
+                        🔋 แรงดัน
+                    </span>
+
+                    <strong>
+                        24 V
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        ⚡ กระแส
+                    </span>
+
+                    <strong>
+                        1.8–2.2 A
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        🔥 กำลัง
+                    </span>
+
+                    <strong>
+                        43–53 W
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="mission-progress">
+
+
+                <div class="mission-progress-label">
+
+                    <span>
+                        Best Score
+                    </span>
+
+
+                    <strong
+                        id="mission02Stars"
+                    >
+                        ☆☆☆☆☆
+                    </strong>
+
+                </div>
+
+
+                <div class="mission-progress-bar">
+
+                    <div
+                        id="mission02ProgressBar"
+                        class="mission-progress-fill"
+                    ></div>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="mission-meta">
+
+
+                <div>
+
+                    <span>
+                        Attempts
+                    </span>
+
+
+                    <strong
+                        id="mission02Attempts"
+                    >
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        XP
+                    </span>
+
+
+                    <strong
+                        id="mission02XP"
+                    >
+                        0
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+
+            <a
+                href="mission02.html"
+                class="mission-button"
+            >
+
+                <span
+                    id="mission02ButtonText"
+                >
+                    Start Mission →
+                </span>
+
+            </a>
+
+
+        </article>
+
+
+        <!-- =================================================
+             MISSION 03 COMING SOON
+        ================================================== -->
+
+        <article
+            class="mission-card coming-soon"
+        >
+
+
+            <div class="mission-card-top">
+
+
+                <div class="mission-icon">
+                    🏭
+                </div>
+
+
+                <span
+                    class="mission-status-badge progress"
+                >
+                    COMING SOON
+                </span>
+
+
+            </div>
+
+
+            <div class="mission-number">
+                MISSION 03
+            </div>
+
+
+            <h3>
+                Mechanical System
+            </h3>
+
+
+            <p>
+
+                วิเคราะห์ระบบกลไก
+                แรงบิด ความเร็วรอบ
+                และอัตราทดของชุดส่งกำลัง
+
+            </p>
+
+
+            <div class="mission-objectives">
+
+
+                <div>
+
+                    <span>
+                        🔧 Torque
+                    </span>
+
+                    <strong>
+                        T
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        ⚙ Gear
+                    </span>
+
+                    <strong>
+                        Ratio
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        🚀 Speed
+                    </span>
+
+                    <strong>
+                        RPM
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+
+            <a
+                href="#"
+                class="mission-button"
+            >
+                Coming Soon
+            </a>
+
+
+        </article>
+
+
+        <!-- =================================================
+             MISSION 04 COMING SOON
+        ================================================== -->
+
+        <article
+            class="mission-card coming-soon"
+        >
+
+
+            <div class="mission-card-top">
+
+
+                <div class="mission-icon">
+                    🌉
+                </div>
+
+
+                <span
+                    class="mission-status-badge progress"
+                >
+                    COMING SOON
+                </span>
+
+
+            </div>
+
+
+            <div class="mission-number">
+                MISSION 04
+            </div>
+
+
+            <h3>
+                Structural Load
+            </h3>
+
+
+            <p>
+
+                ทดลองรับแรงของโครงสร้าง
+                วิเคราะห์แรงและการกระจายน้ำหนัก
+                ในระบบวิศวกรรมโยธา
+
+            </p>
+
+
+            <div class="mission-objectives">
+
+
+                <div>
+
+                    <span>
+                        🏗 Force
+                    </span>
+
+                    <strong>
+                        F
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        📐 Stress
+                    </span>
+
+                    <strong>
+                        σ
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        📏 Strain
+                    </span>
+
+                    <strong>
+                        ε
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+
+            <a
+                href="#"
+                class="mission-button"
+            >
+                Coming Soon
+            </a>
+
+
+        </article>
+
+
+    </div>
+
+</section>
+
+
+</main>
+
+</div>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer>
+
+    <p>
+        © 2026 ENGI HUB
+    </p>
+
+    <p>
+        Engineering Calculation Tools
+    </p>
+
+</footer>
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script>
+
+"use strict";
+
+
+/* =========================================================
+   PAGE DATA
+========================================================= */
+
+const pageMap = {
+
+    "Projectile Motion":
+        "projectile.html",
+
+    "Free Fall Simulation":
+        "freefall.html",
+
+    "Simple Pendulum":
+        "pendulum.html",
+
+    "Spring-Mass":
+        "spring.html",
+
+    "Wave Simulation":
+        "wave.html",
+
+    "Inclined Plane":
+        "inclined-plane.html",
+
+    "3D Vector":
+        "vector.html",
+
+    "Force Vector Laboratory":
+        "force-vector.html",
+
+    "Motion Laboratory":
+        "motion.html",
+
+    "Circular Motion Laboratory":
+        "circular-motion.html",
+
+    "2D Motion Laboratory":
+        "motion-2d.html",
+
+    "Energy & Work Laboratory":
+        "energy.html"
+
+};
+
+
+/* =========================================================
+   RECOMMENDATION
+========================================================= */
+
+const recommendationMap = {
+
+    "Projectile Motion": [
+        "2D Motion Laboratory",
+        "Free Fall Simulation"
+    ],
+
+    "Free Fall Simulation": [
+        "Motion Laboratory",
+        "Projectile Motion"
+    ],
+
+    "Motion Laboratory": [
+        "2D Motion Laboratory",
+        "Circular Motion Laboratory"
+    ],
+
+    "Circular Motion Laboratory": [
+        "Force Vector Laboratory",
+        "3D Vector"
+    ],
+
+    "Inclined Plane": [
+        "Force Vector Laboratory",
+        "Energy & Work Laboratory"
+    ],
+
+    "Force Vector Laboratory": [
+        "3D Vector",
+        "Inclined Plane"
+    ],
+
+    "3D Vector": [
+        "Force Vector Laboratory",
+        "Inclined Plane"
+    ],
+
+    "Energy & Work Laboratory": [
+        "Inclined Plane",
+        "Motion Laboratory"
+    ],
+
+    "Simple Pendulum": [
+        "Spring-Mass",
+        "Wave Simulation"
+    ],
+
+    "Spring-Mass": [
+        "Simple Pendulum",
+        "Wave Simulation"
+    ],
+
+    "Wave Simulation": [
+        "Simple Pendulum",
+        "Spring-Mass"
+    ],
+
+    "2D Motion Laboratory": [
+        "Projectile Motion",
+        "Motion Laboratory"
+    ]
+
+};
+
+
+/* =========================================================
+   LOCAL STORAGE
+========================================================= */
+
+function getHistory() {
+
+    try {
+
+        const data =
+            localStorage.getItem(
+                "engiHistory"
+            );
+
+
+        if (!data) {
+
+            return [];
+
+        }
+
+
+        const parsed =
+            JSON.parse(data);
+
+
+        return Array.isArray(parsed)
+            ? parsed
+            : [];
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Cannot read engiHistory:",
+            error
+        );
+
+
+        return [];
+
+    }
+
+}
+
+
+function getFavorites() {
+
+    try {
+
+        const data =
+            localStorage.getItem(
+                "engiFavorites"
+            );
+
+
+        if (!data) {
+
+            return [];
+
+        }
+
+
+        const parsed =
+            JSON.parse(data);
+
+
+        return Array.isArray(parsed)
+            ? parsed
+            : [];
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Cannot read engiFavorites:",
+            error
+        );
+
+
+        return [];
+
+    }
+
+}
+
+
+function saveFavorites(
+    favorites
+) {
+
+    localStorage.setItem(
+        "engiFavorites",
+        JSON.stringify(
+            favorites
+        )
+    );
+
+}
+
+
+function getEngineeringMissionProgress() {
+
+    try {
+
+        const data =
+            localStorage.getItem(
+                "engiMissionProgress"
+            );
+
+
+        if (!data) {
+
+            return {};
+
+        }
+
+
+        const parsed =
+            JSON.parse(data);
+
+
+        if (
+            parsed &&
+            typeof parsed === "object"
+        ) {
+
+            return parsed;
+
+        }
+
+
+        return {};
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Cannot read mission progress:",
+            error
+        );
+
+
+        return {};
+
+    }
+
+}
+
+
+/* =========================================================
+   PHYSICS SEARCH
+========================================================= */
+
+const searchInput =
+    document.getElementById(
+        "physicsSearch"
+    );
+
+
+const physicsCards =
+    Array.from(
+        document.querySelectorAll(
+            ".physics-card"
+        )
+    );
+
+
+const filterButtons =
+    Array.from(
+        document.querySelectorAll(
+            ".physics-filter"
+        )
+    );
+
+
+const noResults =
+    document.getElementById(
+        "noResults"
+    );
+
+
+let currentFilter =
+    "all";
+
+
+function filterPhysicsCards() {
+
+    const keyword =
+        searchInput.value
+            .trim()
+            .toLowerCase();
+
+
+    let visibleCount = 0;
+
+
+    physicsCards.forEach(
+        function(card) {
+
+            const category =
+                card.dataset.category
+                    || "";
+
+
+            const keywords =
+                card.dataset.keywords
+                    || "";
+
+
+            const title =
+                card.querySelector("h3")
+                    ?.textContent
+                    .toLowerCase()
+                    || "";
+
+
+            const matchesSearch =
+                !keyword
+                ||
+                keywords
+                    .toLowerCase()
+                    .includes(keyword)
+                ||
+                title.includes(keyword);
+
+
+            const matchesFilter =
+                currentFilter === "all"
+                ||
+                category === currentFilter;
+
+
+            const visible =
+                matchesSearch &&
+                matchesFilter;
+
+
+            card.classList.toggle(
+                "hidden",
+                !visible
+            );
+
+
+            if (visible) {
+
+                visibleCount++;
+
+            }
+
+        }
+    );
+
+
+    noResults.classList.toggle(
+        "visible",
+        visibleCount === 0
+    );
+
+}
+
+
+searchInput.addEventListener(
+    "input",
+    filterPhysicsCards
+);
+
+
+filterButtons.forEach(
+    function(button) {
+
+        button.addEventListener(
+            "click",
+            function() {
+
+                filterButtons.forEach(
+                    function(btn) {
+
+                        btn.classList.remove(
+                            "active"
+                        );
+
+                    }
+                );
+
+
+                button.classList.add(
+                    "active"
+                );
+
+
+                currentFilter =
+                    button.dataset.filter
+                    || "all";
+
+
+                filterPhysicsCards();
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   FAVORITES
+========================================================= */
+
+function updateFavoriteButtons() {
+
+    const favorites =
+        getFavorites();
+
+
+    document
+        .querySelectorAll(
+            ".favorite-btn"
+        )
+        .forEach(
+            function(button) {
+
+                const title =
+                    button.dataset.title;
+
+
+                const isFavorite =
+                    favorites.includes(
+                        title
+                    );
+
+
+                button.classList.toggle(
+                    "active",
+                    isFavorite
+                );
+
+
+                button.textContent =
+                    isFavorite
+                        ? "★"
+                        : "☆";
+
+            }
+        );
+
+}
+
+
+document
+    .querySelectorAll(
+        ".favorite-btn"
+    )
+    .forEach(
+        function(button) {
+
+            button.addEventListener(
+                "click",
+                function() {
+
+                    const title =
+                        button.dataset.title;
+
+
+                    let favorites =
+                        getFavorites();
+
+
+                    if (
+                        favorites.includes(
+                            title
+                        )
+                    ) {
+
+                        favorites =
+                            favorites.filter(
+                                function(item) {
+
+                                    return item !== title;
+
+                                }
+                            );
+
+                    }
+
+                    else {
+
+                        favorites.push(
+                            title
+                        );
+
+                    }
+
+
+                    saveFavorites(
+                        favorites
+                    );
+
+
+                    updateFavoriteButtons();
+
+                    renderFavoriteLabs();
+
+                }
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   RECENT EXPERIMENTS
+========================================================= */
+
+function renderRecentExperiments() {
+
+    const container =
+        document.getElementById(
+            "recentExperiments"
+        );
+
+
+    const history =
+        getHistory();
+
+
+    if (
+        !history.length
+    ) {
+
+        container.innerHTML =
+            `
+            <div class="dashboard-empty">
+                ยังไม่มีการทดลองล่าสุด
+            </div>
+            `;
+
+        return;
+
+    }
+
+
+    const recent =
+        history.slice(0,3);
+
+
+    container.innerHTML =
+        "";
+
+
+    recent.forEach(
+        function(item) {
+
+            const title =
+                item.title
+                || "Physics Laboratory";
+
+
+            const url =
+                pageMap[title]
+                || "#";
+
+
+            const row =
+                document.createElement(
+                    "div"
+                );
+
+
+            row.className =
+                "continue-tool";
+
+
+            row.innerHTML =
+                `
+                <div>
+                    <strong>
+                        ${title}
+                    </strong>
+
+                    <span>
+                        ${item.date
+                            ? "ล่าสุด"
+                            : "Physics Lab"}
+                    </span>
+                </div>
+
+                <a
+                    href="${url}"
+                    class="dashboard-link"
+                >
+                    เปิด →
+                </a>
+                `;
+
+
+            container.appendChild(
+                row
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   CONTINUE LEARNING
+========================================================= */
+
+function renderContinueLearning() {
+
+    const card =
+        document.getElementById(
+            "continueCard"
+        );
+
+
+    const container =
+        document.getElementById(
+            "continueContent"
+        );
+
+
+    const history =
+        getHistory();
+
+
+    if (
+        !history.length
+    ) {
+
+        card.classList.remove(
+            "visible"
+        );
+
+        return;
+
+    }
+
+
+    const latest =
+        history[0];
+
+
+    const title =
+        latest.title
+        || "Physics Laboratory";
+
+
+    const url =
+        pageMap[title]
+        || "#";
+
+
+    card.classList.add(
+        "visible"
+    );
+
+
+    container.innerHTML =
+        `
+        <div class="continue-tool">
+
+            <div>
+
+                <strong>
+                    ${title}
+                </strong>
+
+                <span>
+                    กลับไปทดลองต่อจาก Lab ล่าสุด
+                </span>
+
+            </div>
+
+        </div>
+
+        <a
+            href="${url}"
+            class="dashboard-link"
+        >
+            Continue Learning →
+        </a>
+        `;
+
+}
+
+
+/* =========================================================
+   FAVORITE LABS
+========================================================= */
+
+function renderFavoriteLabs() {
+
+    const container =
+        document.getElementById(
+            "favoriteLabs"
+        );
+
+
+    const favorites =
+        getFavorites();
+
+
+    if (
+        !favorites.length
+    ) {
+
+        container.innerHTML =
+            `
+            <div class="dashboard-empty">
+                ยังไม่มี Lab ที่บันทึกไว้
+            </div>
+            `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        "";
+
+
+    favorites.slice(0,3)
+        .forEach(
+            function(title) {
+
+                const url =
+                    pageMap[title]
+                    || "#";
+
+
+                const row =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                row.className =
+                    "continue-tool";
+
+
+                row.innerHTML =
+                    `
+                    <div>
+                        <strong>
+                            ⭐ ${title}
+                        </strong>
+                    </div>
+
+                    <a
+                        href="${url}"
+                        class="dashboard-link"
+                    >
+                        เปิด →
+                    </a>
+                    `;
+
+
+                container.appendChild(
+                    row
+                );
+
+            }
+        );
+
+}
+
+
+/* =========================================================
+   MISSION 01
+========================================================= */
+
+function updateMission01Card() {
+
+    const progress =
+        getEngineeringMissionProgress();
+
+
+    const mission =
+        progress.mission01;
+
+
+    const statusElement =
+        document.getElementById(
+            "mission01Status"
+        );
+
+
+    const starsElement =
+        document.getElementById(
+            "mission01Stars"
+        );
+
+
+    const progressBar =
+        document.getElementById(
+            "mission01ProgressBar"
+        );
+
+
+    const attemptsElement =
+        document.getElementById(
+            "mission01Attempts"
+        );
+
+
+    const xpElement =
+        document.getElementById(
+            "mission01XP"
+        );
+
+
+    const buttonText =
+        document.getElementById(
+            "mission01ButtonText"
+        );
+
+
+    if (!mission) {
+
+        statusElement.textContent =
+            "NEW";
+
+
+        statusElement.className =
+            "mission-status-badge progress";
+
+
+        starsElement.textContent =
+            "☆☆☆☆☆";
+
+
+        progressBar.style.width =
+            "0%";
+
+
+        attemptsElement.textContent =
+            "0";
+
+
+        xpElement.textContent =
+            "0";
+
+
+        buttonText.textContent =
+            "Start Mission →";
+
+
+        return;
+
+    }
+
+
+    const bestStars =
+        Math.min(
+            Math.max(
+                Number(
+                    mission.bestStars
+                    ||
+                    mission.stars
+                    ||
+                    0
+                ),
+                0
+            ),
+            5
+        );
+
+
+    const attempts =
+        Number(
+            mission.attempts
+            ||
+            0
+        );
+
+
+    const totalXP =
+        Number(
+            mission.totalXP
+            ||
+            0
+        );
+
+
+    if (
+        mission.completed
+        &&
+        bestStars >= 3
+    ) {
+
+        statusElement.textContent =
+            "COMPLETED";
+
+
+        statusElement.className =
+            "mission-status-badge completed";
+
+
+        buttonText.textContent =
+            "Play Again →";
+
+    }
+
+    else {
+
+        statusElement.textContent =
+            attempts > 0
+                ? "IN PROGRESS"
+                : "NEW";
+
+
+        statusElement.className =
+            "mission-status-badge progress";
+
+
+        buttonText.textContent =
+            attempts > 0
+                ? "Continue Mission →"
+                : "Start Mission →";
+
+    }
+
+
+    starsElement.textContent =
+        "★".repeat(
+            bestStars
+        )
+        +
+        "☆".repeat(
+            5 - bestStars
+        );
+
+
+    progressBar.style.width =
+        `${bestStars / 5 * 100}%`;
+
+
+    attemptsElement.textContent =
+        attempts;
+
+
+    xpElement.textContent =
+        totalXP;
+
+}
+
+
+/* =========================================================
+   MISSION 02
+========================================================= */
+
+function updateMission02Card() {
+
+    const progress =
+        getEngineeringMissionProgress();
+
+
+    const mission =
+        progress.mission02;
+
+
+    const statusElement =
+        document.getElementById(
+            "mission02Status"
+        );
+
+
+    const starsElement =
+        document.getElementById(
+            "mission02Stars"
+        );
+
+
+    const progressBar =
+        document.getElementById(
+            "mission02ProgressBar"
+        );
+
+
+    const attemptsElement =
+        document.getElementById(
+            "mission02Attempts"
+        );
+
+
+    const xpElement =
+        document.getElementById(
+            "mission02XP"
+        );
+
+
+    const buttonText =
+        document.getElementById(
+            "mission02ButtonText"
+        );
+
+
+    if (!mission) {
+
+        statusElement.textContent =
+            "NEW";
+
+
+        statusElement.className =
+            "mission-status-badge progress";
+
+
+        starsElement.textContent =
+            "☆☆☆☆☆";
+
+
+        progressBar.style.width =
+            "0%";
+
+
+        attemptsElement.textContent =
+            "0";
+
+
+        xpElement.textContent =
+            "0";
+
+
+        buttonText.textContent =
+            "Start Mission →";
+
+
+        return;
+
+    }
+
+
+    const bestStars =
+        Math.min(
+            Math.max(
+                Number(
+                    mission.bestStars
+                    ||
+                    mission.stars
+                    ||
+                    0
+                ),
+                0
+            ),
+            5
+        );
+
+
+    const attempts =
+        Number(
+            mission.attempts
+            ||
+            0
+        );
+
+
+    const totalXP =
+        Number(
+            mission.totalXP
+            ||
+            0
+        );
+
+
+    if (
+        mission.completed
+        &&
+        bestStars >= 3
+    ) {
+
+        statusElement.textContent =
+            "COMPLETED";
+
+
+        statusElement.className =
+            "mission-status-badge completed";
+
+
+        buttonText.textContent =
+            "Play Again →";
+
+    }
+
+    else {
+
+        statusElement.textContent =
+            attempts > 0
+                ? "IN PROGRESS"
+                : "NEW";
+
+
+        statusElement.className =
+            "mission-status-badge progress";
+
+
+        buttonText.textContent =
+            attempts > 0
+                ? "Continue Mission →"
+                : "Start Mission →";
+
+    }
+
+
+    starsElement.textContent =
+        "★".repeat(
+            bestStars
+        )
+        +
+        "☆".repeat(
+            5 - bestStars
+        );
+
+
+    progressBar.style.width =
+        `${bestStars / 5 * 100}%`;
+
+
+    attemptsElement.textContent =
+        attempts;
+
+
+    xpElement.textContent =
+        totalXP;
+
+}
+
+
+/* =========================================================
+   TOTAL MISSION XP
+========================================================= */
+
+function updateMissionTotalXP() {
+
+    const progress =
+        getEngineeringMissionProgress();
+
+
+    let totalXP = 0;
+
+
+    Object.keys(progress)
+        .forEach(
+            function(key) {
+
+                const mission =
+                    progress[key];
+
+
+                if (
+                    mission
+                    &&
+                    typeof mission === "object"
+                ) {
+
+                    totalXP +=
+                        Number(
+                            mission.totalXP
+                            ||
+                            0
+                        );
+
+                }
+
+            }
+        );
+
+
+    const element =
+        document.getElementById(
+            "missionTotalXP"
+        );
+
+
+    element.textContent =
+        `XP รวม: ${totalXP}`;
+
+}
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+function initializePhysicsPage() {
+
+    filterPhysicsCards();
+
+    updateFavoriteButtons();
+
+    renderRecentExperiments();
+
+    renderContinueLearning();
+
+    renderFavoriteLabs();
+
+    updateMission01Card();
+
+    updateMission02Card();
+
+    updateMissionTotalXP();
+
+}
+
+
+initializePhysicsPage();
+
+
+/* =========================================================
+   STORAGE EVENT
+========================================================= */
+
+window.addEventListener(
+    "storage",
+    function() {
+
+        updateFavoriteButtons();
+
+        renderRecentExperiments();
+
+        renderContinueLearning();
+
+        renderFavoriteLabs();
+
+        updateMission01Card();
+
+        updateMission02Card();
+
+        updateMissionTotalXP();
+
+    }
+);
+
+</script>
+
+
+<script src="js/darkmode.js"></script>
+
+
+</body>
+
+</html>
